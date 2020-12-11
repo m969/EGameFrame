@@ -1,0 +1,16 @@
+{
+    "name": "Game.ViewModules",
+    "references": [
+        "GUID:ef7f589df76fbf944b883f47a6737c56",
+        "GUID:fedaaeb85cbdb4c45af0ccc63a2e2ab8"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
