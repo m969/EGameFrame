@@ -10,8 +10,11 @@ public class UnityApp : MonoBehaviour
 
     private void Start()
     {
-        Game = new Game();
         UnitySDK = new UnitySDK();
+        UnitySDK.Start();
+
+        Game = new Game();
+        Game.Start();
     }
 
     private void Update()

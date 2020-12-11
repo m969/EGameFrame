@@ -1,8 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
 
-public class UIUtils : MonoBehaviour
+public class LoginUtils
 {
     // Start is called before the first frame update
     void Start()

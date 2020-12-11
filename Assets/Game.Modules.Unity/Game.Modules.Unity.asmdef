@@ -1,8 +1,7 @@
 {
-    "name": "Game.ViewModules",
+    "name": "Game.Modules.Unity",
     "references": [
-        "GUID:ef7f589df76fbf944b883f47a6737c56",
-        "GUID:fedaaeb85cbdb4c45af0ccc63a2e2ab8"
+        "GUID:ef7f589df76fbf944b883f47a6737c56"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

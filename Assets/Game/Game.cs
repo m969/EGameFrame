@@ -1,24 +1,36 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using EGamePlay;
 
 public class Game
 {
-    public Dictionary<string, Module> Modules => new Dictionary<string, Module>();
+    public static Dictionary<string, Module> Modules => new Dictionary<string, Module>();
 
 
-    private void Start()
+    public void Start()
     {
-        Modules.Add("Map", new Module());
-        Modules.Add("Combat", new Module());
+        LogHandler.DebugHandler += LogUtils.Debug;
 
-        Modules.Add("MapView", new Module());
-        Modules.Add("CombatView", new Module());
-        Modules.Add("UI", new Module());
+        EntityFactory.DebugLog = true;
+        EntityFactory.Global = new GlobalEntity();
+
+        var loginModule = EntityFactory.Create<Module>();
+        loginModule.AddComponent<LoginComponent>();
+        Modules.Add("LoginModule", loginModule);
+
+
+        //Modules.Add("MapModule", new Module());
+        //Modules.Add("CombatModule", new Module());
+
+        //Modules.Add("LoginViewModule", new Module());
+        //Modules.Add("MapViewModule", new Module());
+        //Modules.Add("CombatViewModule", new Module());
+
     }
 
-    private void Update()
+    public void Update()
     {
-
+        EntityFactory.Global.Update();
     }
 }

@@ -1,7 +1,9 @@
 {
-    "name": "Game.Modules",
+    "name": "Game.ModulesView",
     "references": [
-        "GUID:ef7f589df76fbf944b883f47a6737c56"
+        "GUID:ef7f589df76fbf944b883f47a6737c56",
+        "GUID:fedaaeb85cbdb4c45af0ccc63a2e2ab8",
+        "GUID:4909eee8f33f22f4fa377ca2698a6016"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],
@@ -11,5 +13,5 @@
     "autoReferenced": true,
     "defineConstraints": [],
     "versionDefines": [],
-    "noEngineReferences": true
+    "noEngineReferences": false
 }

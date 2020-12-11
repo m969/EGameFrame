@@ -1,7 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using UnityEngine;
 
-public class MapUtils
+public class LoginViewUtils : MonoBehaviour
 {
     // Start is called before the first frame update
     void Start()

@@ -1,22 +1,29 @@
 ﻿using System;
 
+
+public static class LogHandler
+{
+    public static Action<string> DebugHandler;
+    public static Action<string> ErrorHandler;
+}
+
 namespace EGamePlay
 {
     public static class Log
     {
         public static void Debug(string log)
         {
-            UnityEngine.Debug.Log(log);
+            LogHandler.DebugHandler?.Invoke(log);
         }
 
         public static void Error(string log)
         {
-            UnityEngine.Debug.LogError(log);
+            LogHandler.ErrorHandler?.Invoke(log);
         }
 
         public static void Error(Exception e)
         {
-            UnityEngine.Debug.LogException(e);
+            LogHandler.ErrorHandler?.Invoke(e.ToString());
         }
     }
 }
@@ -27,17 +34,17 @@ namespace ET
     {
         public static void Debug(string log)
         {
-            UnityEngine.Debug.Log(log);
+            LogHandler.DebugHandler?.Invoke(log);
         }
 
         public static void Error(string log)
         {
-            UnityEngine.Debug.LogError(log);
+            LogHandler.ErrorHandler?.Invoke(log);
         }
 
-        public static void Error(Exception exception)
+        public static void Error(Exception e)
         {
-            UnityEngine.Debug.LogError(exception.ToString());
+            LogHandler.ErrorHandler?.Invoke(e.ToString());
         }
     }
 }
