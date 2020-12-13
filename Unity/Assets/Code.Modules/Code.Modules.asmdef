@@ -1,0 +1,15 @@
+{
+    "name": "Code.Modules",
+    "references": [
+        "GUID:ef7f589df76fbf944b883f47a6737c56"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": true
+}

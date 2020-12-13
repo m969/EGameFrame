@@ -2,7 +2,8 @@
 
 namespace StreamTransport
 {
-    public class Class1
+    public class FlatBufferStreamTransport
     {
+
     }
 }

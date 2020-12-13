@@ -26,7 +26,7 @@ namespace EGamePlay
         public long InstanceId { get; set; }
         private GlobalEntity Global => EntityFactory.Global;
         private Entity parent;
-        public Entity Parent { get { return parent; } private set { parent = value; OnSetParent(value); } }
+        public Entity Parent { get { return parent; } set { parent = value; OnSetParent(value); } }
         public bool IsDisposed { get { return InstanceId == 0; } }
         public Dictionary<Type, Component> Components { get; set; } = new Dictionary<Type, Component>();
         private List<Entity> Children { get; set; } = new List<Entity>();

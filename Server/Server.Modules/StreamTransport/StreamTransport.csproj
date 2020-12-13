@@ -1,7 +1,17 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <TargetFramework>net5.0</TargetFramework>
   </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="FlatSharp" Version="4.1.0" />
+    <PackageReference Include="FlatSharp.Compiler" Version="4.1.0">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="FlatSharp.Runtime" Version="4.1.0" />
+    <PackageReference Include="FlatSharp.Unsafe" Version="4.1.0" />
+  </ItemGroup>
 
 </Project>
