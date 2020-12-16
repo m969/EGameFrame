@@ -124,13 +124,13 @@ namespace ET
 			object message;
 			try
 			{
-				Type type = OpcodeTypeComponent.Instance.GetType(opcode);
-				message = MessagePackHelper.DeserializeFrom(opcode, type, memoryStream);
+				//Type type = OpcodeTypeComponent.Instance.GetType(opcode);
+				//message = MessagePackHelper.DeserializeFrom(opcode, type, memoryStream);
 
-				if (OpcodeHelper.IsNeedDebugLogMessage(opcode))
-				{
-					Log.Msg(message);
-				}
+				//if (OpcodeHelper.IsNeedDebugLogMessage(opcode))
+				//{
+				//	Log.Msg(message);
+				//}
 			}
 			catch (Exception e)
 			{
@@ -141,7 +141,7 @@ namespace ET
 				return;
 			}
 
-			RunMessage(opcode, message);
+			//RunMessage(opcode, message);
 		}
 
 		private void RunMessage(ushort opcode, object message)
@@ -229,9 +229,9 @@ namespace ET
 
 		public void Send(IMessage message)
 		{
-			ushort opcode = OpcodeTypeComponent.Instance.GetOpcode(message.GetType());
+			//ushort opcode = OpcodeTypeComponent.Instance.GetOpcode(message.GetType());
 			
-			Send(opcode, message);
+			//Send(opcode, message);
 		}
 		
 		public void Send(ushort opcode, object message)

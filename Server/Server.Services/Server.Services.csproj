@@ -5,7 +5,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Unity\Game.Basic.csproj" />
     <ProjectReference Include="..\..\Unity\Game.Modules.csproj" />
   </ItemGroup>
 

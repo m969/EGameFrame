@@ -6,8 +6,11 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\Unity\Code.Basics.csproj" />
+    <ProjectReference Include="..\..\Unity\Code.Modules.csproj" />
     <ProjectReference Include="..\..\Unity\Game.Modules.csproj" />
     <ProjectReference Include="..\Server.Modules\StreamTransport\StreamTransport.csproj" />
+    <ProjectReference Include="..\Server.Services\Server.Services.csproj" />
   </ItemGroup>
 
 </Project>

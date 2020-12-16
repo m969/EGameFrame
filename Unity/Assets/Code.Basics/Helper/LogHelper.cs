@@ -32,6 +32,16 @@ namespace ET
 {
     public static class Log
     {
+        public static void Msg(object log)
+        {
+            LogHandler.DebugHandler?.Invoke($"{log}");
+        }
+
+        public static void Info(string log)
+        {
+            LogHandler.DebugHandler?.Invoke(log);
+        }
+
         public static void Debug(string log)
         {
             LogHandler.DebugHandler?.Invoke(log);

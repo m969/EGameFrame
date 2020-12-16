@@ -1,0 +1,195 @@
+﻿/*
+ * Copyright 2020 James Courtney
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+<#@ template debug="false" hostspecific="false" language="C#" #>
+<#@ assembly name="System.Core" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="System.Text" #>
+<#@ import namespace="System.Collections.Generic" #>
+<#@ output extension=".cs" #>
+
+<#
+	int numGenerics = 30;
+#>
+
+namespace FlatSharp
+{
+	internal interface IUnion
+	{
+	}
+
+
+	<#
+		for (int i = 0; i < numGenerics; ++i)
+		{
+			var range = Enumerable.Range(1, i + 1);
+	#>
+			[System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
+			public class FlatBufferUnion<<#= string.Join(", ", range.Select(x => "T" + x)) #>> : IUnion
+			{
+				private readonly byte discriminator;
+				
+				<# foreach (var genericType in range) { #>
+
+				protected readonly T<#= genericType #> item<#= genericType #>;
+				
+				<# } #>
+				
+				<# foreach (var genericType in range) { #>
+
+				public FlatBufferUnion(<#= "T" + genericType #> item)
+				{
+					if (object.ReferenceEquals(item, null))
+					{
+						throw new System.ArgumentNullException(nameof(item), "FlatBuffer unions do not accept null items. If you wish to use a null value, simply null out the union on the class.");
+					}
+
+					this.discriminator = <#= genericType #>;
+					this.item<#= genericType #> = item;
+				}
+				
+				<# } #>
+			
+				public byte Discriminator => this.discriminator;
+
+				<# foreach (var genericType in range) { #>
+
+				public T<#= genericType #> Item<#= genericType #>
+				{
+					get 
+					{
+						if (this.discriminator == <#= genericType #>)
+						{
+							return this.item<#= genericType #>;
+						}
+						else
+						{
+							throw new System.InvalidOperationException();
+						}
+					}
+				}
+
+				public bool TryGet(out T<#= genericType #> item)
+				{
+					item = default;
+					if (this.discriminator == <#= genericType #>)
+					{
+						item = this.item<#= genericType #>;
+						return true;
+					}
+
+					return false;
+				}
+				
+				<# 
+				} 
+				#>
+
+				public FlatBufferUnion<<#= string.Join(", ", range.Select(x => "T" + x)) #>> Clone(
+				<#= string.Join(",\r\n", range.Select(x => $"System.Func<T{x}, T{x}> cloneT{x}")) #>
+				)
+				{
+					switch (this.discriminator)
+					{
+					<# foreach (var genericType in range) { #>
+						case <#= genericType #>:
+							return new FlatBufferUnion<<#= string.Join(", ", range.Select(x => "T" + x)) #>>(cloneT<#= genericType #>(this.item<#= genericType #>));
+					<# } #>
+					}
+
+					throw new System.InvalidOperationException();
+				}
+
+				public void Switch(
+					System.Action defaultCase,
+					<#= string.Join(",\r\n", range.Select(x => $"System.Action<T{x}> case{x}")) #>)
+				{
+					switch (this.discriminator)
+					{
+					<# foreach (var genericType in range) { #>
+						case <#= genericType #>:
+						{
+							case<#= genericType #>(this.item<#= genericType #>);
+							break;
+						}
+					<# } #>
+						default:
+							defaultCase();
+							break;
+					}
+				}
+
+				public void Switch<TState>(
+					TState state,
+					System.Action<TState> defaultCase,
+					<#= string.Join(",\r\n", range.Select(x => $"System.Action<TState, T{x}> case{x}")) #>)
+				{
+					switch (this.discriminator)
+					{
+					<# foreach (var genericType in range) { #>
+						case <#= genericType #>:
+						{
+							case<#= genericType #>(state, this.item<#= genericType #>);
+							break;
+						}
+					<# } #>
+						default:
+							defaultCase(state);
+							break;
+					}
+				}
+
+				
+				public TResult Switch<TResult>(
+					System.Func<TResult> defaultCase,
+					<#= string.Join(",\r\n", range.Select(x => $"System.Func<T{x}, TResult> case{x}")) #>)
+				{
+					switch (this.discriminator)
+					{
+					<# foreach (var genericType in range) { #>
+						case <#= genericType #>:
+						{
+							return case<#= genericType #>(this.item<#= genericType #>);
+						}
+					<# } #>
+						default:
+							return defaultCase();
+					}
+				}
+
+				public TResult Switch<TState, TResult>(
+					TState state,
+					System.Func<TState, TResult> defaultCase,
+					<#= string.Join(",\r\n", range.Select(x => $"System.Func<TState, T{x}, TResult> case{x}")) #>)
+				{
+					switch (this.discriminator)
+					{
+					<# foreach (var genericType in range) { #>
+						case <#= genericType #>:
+						{
+							return case<#= genericType #>(state, this.item<#= genericType #>);
+						}
+					<# } #>
+						default:
+							return defaultCase(state);
+					}
+				}
+			}
+	<#
+		}
+	#>
+
+}
