@@ -178,15 +178,15 @@ namespace FlatSharp
                 var enc = SerializationHelpers.Encoding;
                 int maxLength = enc.GetMaxByteCount(left.Length);
 
-#if NETSTANDARD
+//#if NETSTANDARD
                byte[] leftBytes = enc.GetBytes(left);
                int leftLength = leftBytes.Length;
                Span<byte> leftSpan = leftBytes;
-#else
-               Span<byte> leftSpan = maxLength < 1024 ? stackalloc byte[maxLength] : new byte[maxLength];
-               int leftLength = enc.GetBytes(left, leftSpan);
-               leftSpan = leftSpan.Slice(0, leftLength);
-#endif
+//#else
+//               Span<byte> leftSpan = maxLength < 1024 ? stackalloc byte[maxLength] : new byte[maxLength];
+//               int leftLength = enc.GetBytes(left, leftSpan);
+//               leftSpan = leftSpan.Slice(0, leftLength);
+//#endif
 
                return StringSpanComparer.Instance.Compare(true, leftSpan, true, rightData);
             };

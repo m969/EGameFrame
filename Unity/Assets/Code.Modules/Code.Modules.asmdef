@@ -1,7 +1,9 @@
 {
     "name": "Code.Modules",
+    "rootNamespace": "",
     "references": [
-        "GUID:ef7f589df76fbf944b883f47a6737c56"
+        "GUID:ef7f589df76fbf944b883f47a6737c56",
+        "GUID:703662a5874569845a2ea566be5aea6f"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

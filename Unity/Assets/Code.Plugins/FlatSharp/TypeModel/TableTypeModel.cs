@@ -200,7 +200,10 @@
                 }
 
                 ValidateSortedVector(model);
-
+                //if (model.ItemTypeModel.PhysicalLayout == null)
+                //{
+                //    model.ItemTypeModel.PhysicalLayout = new ImmutableArray<PhysicalLayoutElement>();
+                //}
                 for (int i = 0; i < model.ItemTypeModel.PhysicalLayout.Length; ++i)
                 {
                     if (!this.occupiedVtableSlots.Add(index + i))
