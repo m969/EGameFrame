@@ -37,7 +37,7 @@ namespace FlatSharp.TypeModel
         /// <summary>
         /// Layout when in a vtable.
         /// </summary>
-        public override ImmutableArray<PhysicalLayoutElement> PhysicalLayout => new PhysicalLayoutElement[] { new PhysicalLayoutElement(sizeof(uint), sizeof(uint)) }.ToImmutableArray();
+        public override ImmutableArray<PhysicalLayoutElement> PhysicalLayout => new ImmutableArray<PhysicalLayoutElement> { new PhysicalLayoutElement(sizeof(uint), sizeof(uint)) }.ToImmutableArray();
 
         /// <summary>
         /// Strings are arbitrary in length.

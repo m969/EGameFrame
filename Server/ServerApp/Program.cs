@@ -26,7 +26,7 @@ namespace ServerApp
             loginModule.AddComponent<LoginComponent>();
             Modules.Add("LoginModule", loginModule);
 
-            Samples.MonsterAttributeExample.MonsterAttributeExample.Run();
+            //Samples.MonsterAttributeExample.MonsterAttributeExample.Run();
 
             Update().Coroutine();
         }
