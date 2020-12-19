@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace EGamePlay
+namespace EGameFrame
 {
     public static class RandomHelper
     {

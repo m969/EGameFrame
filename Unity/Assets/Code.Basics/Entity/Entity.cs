@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 
-namespace EGamePlay
+namespace EGameFrame
 {
     public abstract partial class Entity
     {

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace EGamePlay
+namespace EGameFrame
 {
     public class Component : IDisposable
     {

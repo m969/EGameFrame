@@ -19,6 +19,7 @@ namespace Samples.SchemaFilesExample2
     using System;
     using System.Collections.Generic;
     using FlatSharp;
+    using EGameFrame;
 
     /// <summary>
     /// This sample shows the usage of FlatSharp when declaring types and serializers.
@@ -58,12 +59,12 @@ namespace Samples.SchemaFilesExample2
             // Serializer is pregenerated, so no first-run penalty for FlatBufferSerializer.
             byte[] destination = new byte[1024];
 
-            UnityEngine.Debug.Log(container.fruit);
+            Log.Debug(container.fruit.ToString());
             int maxBytes = FooBarContainer.Serializer.GetMaxSize(container);
             int bytesWritten = FooBarContainer.Serializer.Write(destination, container);
             var parsed = FooBarContainer.Serializer.Parse(destination);
-            UnityEngine.Debug.Log(parsed.fruit);
-            UnityEngine.Debug.Log(parsed.list[0].name);
+            Log.Debug(parsed.fruit.ToString());
+            Log.Debug(parsed.list[0].name);
         }
     }
 }

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 
 
-namespace EGamePlay
+namespace EGameFrame
 {
     public sealed class EventSubscribeCollection<T> where T : class
     {

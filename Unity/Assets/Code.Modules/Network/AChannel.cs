@@ -1,7 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Net;
-using EGamePlay;
+using EGameFrame;
 
 namespace ET
 {

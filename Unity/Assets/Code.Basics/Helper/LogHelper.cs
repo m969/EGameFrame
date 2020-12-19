@@ -7,7 +7,7 @@ public static class LogHandler
     public static Action<string> ErrorHandler;
 }
 
-namespace EGamePlay
+namespace EGameFrame
 {
     public static class Log
     {

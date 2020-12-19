@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using EGamePlay;
+using EGameFrame;
 
 public class Module : Entity
 {

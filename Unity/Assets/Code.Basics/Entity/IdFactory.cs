@@ -2,7 +2,7 @@
 using System.Linq;
 using System.Collections.Generic;
 
-namespace EGamePlay
+namespace EGameFrame
 {
     public static class IdFactory
     {

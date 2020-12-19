@@ -2,7 +2,7 @@
 using System.Threading;
 using System.Threading.Tasks;
 using System.Collections.Generic;
-using EGamePlay;
+using EGameFrame;
 
 namespace ServerApp
 {
@@ -26,7 +26,7 @@ namespace ServerApp
             loginModule.AddComponent<LoginComponent>();
             Modules.Add("LoginModule", loginModule);
 
-            //Samples.MonsterAttributeExample.MonsterAttributeExample.Run();
+            Samples.SchemaFilesExample2.SchemaFilesExample2.Run();
 
             Update().Coroutine();
         }
