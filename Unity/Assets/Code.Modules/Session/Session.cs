@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using EGameFrame;
+using EGameFrame.Message;
 
 namespace ET
 {
@@ -124,14 +125,14 @@ namespace ET
 			object message;
 			try
 			{
-				//Type type = OpcodeTypeComponent.Instance.GetType(opcode);
-				//message = MessagePackHelper.DeserializeFrom(opcode, type, memoryStream);
+                //Type type = OpcodeTypeComponent.Instance.GetType(opcode);
+                message = MessagePackHelper.DeserializeFrom(opcode, memoryStream);
 
-				//if (OpcodeHelper.IsNeedDebugLogMessage(opcode))
-				//{
-				//	Log.Msg(message);
-				//}
-			}
+                //if (OpcodeHelper.IsNeedDebugLogMessage(opcode))
+                //{
+                //	Log.Msg(message);
+                //}
+            }
 			catch (Exception e)
 			{
 				// 出现任何消息解析异常都要断开Session，防止客户端伪造消息
@@ -218,21 +219,21 @@ namespace ET
 			return tcs.Task;
 		}
 
-		//public void Reply(IResponse message)
-		//{
-		//	if (this.IsDisposed)
-		//	{
-		//		throw new Exception("session已经被Dispose了");
-		//	}
-		//	this.Send(message);
-		//}
+        public void Reply(IResponse message)
+        {
+            if (this.IsDisposed)
+            {
+                throw new Exception("session已经被Dispose了");
+            }
+            this.Send(message);
+        }
 
-		public void Send(IMessage message)
+        public void Send(IMessage message)
 		{
-			//ushort opcode = OpcodeTypeComponent.Instance.GetOpcode(message.GetType());
-			
-			//Send(opcode, message);
-		}
+            ushort opcode = OpcodeTypeComponent.Instance.GetOpcode(message.GetType());
+
+            Send(opcode, message);
+        }
 		
 		public void Send(ushort opcode, object message)
 		{

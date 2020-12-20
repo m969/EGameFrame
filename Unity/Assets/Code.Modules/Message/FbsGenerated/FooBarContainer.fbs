@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-namespace Samples.SchemaFilesExample2;
+namespace EGameFrame.Message;
 
 enum Fruit : byte { Apples, Pears, Bananas }
 

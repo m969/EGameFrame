@@ -16,7 +16,7 @@ public class UnityApp : MonoBehaviour
         Game = new Game();
         Game.Start();
 
-        Samples.SchemaFilesExample2.SchemaFilesExample2.Run();
+        //Samples.SchemaFilesExample2.SchemaFilesExample2.Run();
     }
 
     private void Update()

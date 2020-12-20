@@ -20,6 +20,7 @@ namespace Samples.SchemaFilesExample2
     using System.Collections.Generic;
     using FlatSharp;
     using EGameFrame;
+    using EGameFrame.Message;
 
     /// <summary>
     /// This sample shows the usage of FlatSharp when declaring types and serializers.

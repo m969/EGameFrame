@@ -1,5 +1,5 @@
 // Example IDL file for our monster's schema.
-namespace MyGame.Sample;
+namespace EGameFrame.Message;
 enum Color:byte { Red = 0, Green, Blue = 2 }
 union Equipment { Weapon } // Optionally add more tables.
 struct Vec3 {
