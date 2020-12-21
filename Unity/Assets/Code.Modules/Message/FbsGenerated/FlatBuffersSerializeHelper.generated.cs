@@ -2,18 +2,25 @@
 using System;
 using System.IO;
 using FlatSharp;
+using ET;
 
-namespace EGameFrame.FlatBuffers
+namespace EGameFrame.Message
 {
+    [Message(1)]
+    public partial class Monster : ET.IMessage
+    {
+
+    }
+
     public static class FlatBuffersSerializeHelper
     {
         public static void SerializeTo(ushort opcode, object obj, MemoryStream stream)
         {
             switch (obj)
             {
-				case EGameFrame.Message.FooBarContainer a: EGameFrame.Message.FooBarContainer.Serializer.Write(stream.GetBuffer(), a);break;
-				case EGameFrame.Message.LoginRequest a: EGameFrame.Message.LoginRequest.Serializer.Write(stream.GetBuffer(), a);break;
-				case EGameFrame.Message.Monster a: EGameFrame.Message.Monster.Serializer.Write(stream.GetBuffer(), a);break;
+				case EGameFrame.Message.FooBarContainer msg : EGameFrame.Message.FooBarContainer.Serializer.Write(stream.GetBuffer(), msg);break;
+				case EGameFrame.Message.LoginRequest msg : EGameFrame.Message.LoginRequest.Serializer.Write(stream.GetBuffer(), msg);break;
+				case EGameFrame.Message.Monster msg : EGameFrame.Message.Monster.Serializer.Write(stream.GetBuffer(), msg);break;
 
                 default:
                     return;

@@ -21,7 +21,7 @@ namespace EGameFrame.FlatBuffers
     {
         public static void SerializeTo(ushort opcode, object obj, MemoryStream stream)
         {
-            switch (opcode)
+            switch (obj)
             {
 {0}
                 default:
@@ -29,7 +29,7 @@ namespace EGameFrame.FlatBuffers
             }
         }
 
-        public static object DeserializeFrom(ushort opcode, Type type, byte[] bytes, int index, int count)
+        public static object DeserializeFrom(ushort opcode, byte[] bytes, int index, int count)
         {
             switch (opcode)
             {
@@ -39,7 +39,7 @@ namespace EGameFrame.FlatBuffers
             }
         }
 
-        public static object DeserializeFrom(ushort opcode, Type type, MemoryStream stream)
+        public static object DeserializeFrom(ushort opcode, MemoryStream stream)
         {
             switch (opcode)
             {
@@ -90,7 +90,7 @@ namespace EGameFrame.FlatBuffers
             {
                 startOpcode++;
                 Debug.Log($"{item} code {startOpcode}");
-                sb.AppendLine($"\t\t\t\tcase {startOpcode} : EGameFrame.Message.{item}.Serializer.Write(stream.GetBuffer(), obj as EGameFrame.Message.{item});break;");
+                sb.AppendLine($"\t\t\t\tcase EGameFrame.Message.{item} msg : EGameFrame.Message.{item}.Serializer.Write(stream.GetBuffer(), msg);break;");
                 sb1.AppendLine($"\t\t\t\tcase {startOpcode} : return EGameFrame.Message.{item}.Serializer.Parse(bytes);");
                 sb2.AppendLine($"\t\t\t\tcase {startOpcode} : return EGameFrame.Message.{item}.Serializer.Parse(stream.GetBuffer());");
             }
