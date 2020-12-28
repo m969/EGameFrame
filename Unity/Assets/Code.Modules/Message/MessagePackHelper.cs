@@ -8,17 +8,17 @@ namespace EGameFrame.Message
     {
         public static void SerializeTo(ushort opcode, object obj, MemoryStream stream)
         {
-            EGameFrame.FlatBuffers.FlatBuffersSerializeHelper.SerializeTo(opcode, obj, stream);
+            FlatBuffersSerializeHelper.SerializeTo(opcode, obj, stream);
         }
 
         public static object DeserializeFrom(ushort opcode, byte[] bytes, int index, int count)
         {
-            return EGameFrame.FlatBuffers.FlatBuffersSerializeHelper.DeserializeFrom(opcode, bytes, index, count);
+            return FlatBuffersSerializeHelper.DeserializeFrom(opcode, bytes, index, count);
         }
 
         public static object DeserializeFrom(ushort opcode, MemoryStream stream)
         {
-            return EGameFrame.FlatBuffers.FlatBuffersSerializeHelper.DeserializeFrom(opcode, stream);
+            return FlatBuffersSerializeHelper.DeserializeFrom(opcode, stream);
         }
     }
 }

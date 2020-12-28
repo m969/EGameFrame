@@ -7,38 +7,38 @@ namespace EGameFrame.Message
 {
 	public class OpcodeTypeComponent : Entity
 	{
-		public static OpcodeTypeComponent Instance;
-		
-		private readonly DoubleMap<ushort, Type> opcodeTypes = new DoubleMap<ushort, Type>();
-		
-		private readonly Dictionary<ushort, object> typeMessages = new Dictionary<ushort, object>();
+        public static OpcodeTypeComponent Instance;
 
-		//public void Load()
-		//{
-		//	this.opcodeTypes.Clear();
-		//	this.typeMessages.Clear();
-			
-		//	HashSet<Type> types = Game.EventSystem.GetTypes(typeof(MessageAttribute));
-		//	foreach (Type type in types)
-		//	{
-		//		object[] attrs = type.GetCustomAttributes(typeof(MessageAttribute), false);
-		//		if (attrs.Length == 0)
-		//		{
-		//			continue;
-		//		}
-				
-		//		MessageAttribute messageAttribute = attrs[0] as MessageAttribute;
-		//		if (messageAttribute == null)
-		//		{
-		//			continue;
-		//		}
+        private readonly DoubleMap<ushort, Type> opcodeTypes = new DoubleMap<ushort, Type>();
 
-		//		this.opcodeTypes.Add(messageAttribute.Opcode, type);
-		//		this.typeMessages.Add(messageAttribute.Opcode, Activator.CreateInstance(type));
-		//	}
-		//}
+        private readonly Dictionary<ushort, object> typeMessages = new Dictionary<ushort, object>();
 
-		public ushort GetOpcode(Type type)
+        public void Load()
+        {
+            this.opcodeTypes.Clear();
+            this.typeMessages.Clear();
+
+            //HashSet<Type> types = Game.EventSystem.GetTypes(typeof(MessageAttribute));
+            //foreach (Type type in types)
+            //{
+            //    object[] attrs = type.GetCustomAttributes(typeof(MessageAttribute), false);
+            //    if (attrs.Length == 0)
+            //    {
+            //        continue;
+            //    }
+
+            //    MessageAttribute messageAttribute = attrs[0] as MessageAttribute;
+            //    if (messageAttribute == null)
+            //    {
+            //        continue;
+            //    }
+
+            //    this.opcodeTypes.Add(messageAttribute.Opcode, type);
+            //    this.typeMessages.Add(messageAttribute.Opcode, Activator.CreateInstance(type));
+            //}
+        }
+
+        public ushort GetOpcode(Type type)
 		{
 			return this.opcodeTypes.GetKeyByValue(type);
 		}
