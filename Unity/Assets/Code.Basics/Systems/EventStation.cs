@@ -2,7 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EventStation
+namespace EGameFrame
 {
+    public class EventStation
+    {
 
+    }
 }

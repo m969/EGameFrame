@@ -4,7 +4,7 @@ using UnityEngine;
 using EGameFrame;
 using EGameFrame.Message;
 
-public class Game
+public class GameWorld
 {
     public static Dictionary<string, Module> Modules => new Dictionary<string, Module>();
 

@@ -1,5 +1,6 @@
 {
-    "name": "Game.Modules.Unity",
+    "name": "Code.Modules.Unity",
+    "rootNamespace": "",
     "references": [
         "GUID:ef7f589df76fbf944b883f47a6737c56"
     ],
