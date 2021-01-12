@@ -14,7 +14,7 @@ public class GameWorld
         LogHandler.DebugHandler += LogUtils.Debug;
 
         EntityFactory.DebugLog = true;
-        EntityFactory.Global = new GlobalEntity();
+        EntityFactory.Master = new MasterEntity();
 
         var loginModule = EntityFactory.Create<Module>();
         loginModule.AddComponent<LoginComponent>();
@@ -36,6 +36,6 @@ public class GameWorld
 
     public void Update()
     {
-        EntityFactory.Global.Update();
+        EntityFactory.Master.Update();
     }
 }

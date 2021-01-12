@@ -11,20 +11,36 @@ namespace EGameFrame
             return EntityFactory.Create<T>();
         }
 
+        public static T Create<T>(object initData) where T : Entity, new()
+        {
+            return EntityFactory.Create<T>(initData);
+        }
+
+        public static T CreateWithParent<T>(Entity parent) where T : Entity, new()
+        {
+            return EntityFactory.CreateWithParent<T>(parent);
+        }
+
+        public static T CreateWithParent<T>(Entity parent, object initData) where T : Entity, new()
+        {
+            return EntityFactory.CreateWithParent<T>(parent, initData);
+        }
+
         public static void Destroy(Entity entity)
         {
-            entity.OnDestroy();
             entity.Dispose();
+            entity.OnDestroy();
+            EntityFactory.DestroyEntityHandler?.Invoke(entity);
         }
     }
     public abstract partial class Entity : IDisposable
     {
-#if SERVER
-        public UnityEngine.GameObject GameObject { get; set; }
-#endif
+        public object GameObject { get; set; }
         public long Id { get; set; }
         public long InstanceId { get; set; }
-        private GlobalEntity Global => EntityFactory.Global;
+        private string name;
+        public string Name { get { return name; } set { name = value; EntityFactory.RenameEntityHandler?.Invoke(this); } }
+        private MasterEntity Global => EntityFactory.Master;
         private Entity parent;
         public Entity Parent { get { return parent; } set { parent = value; OnSetParent(value); } }
         public bool IsDisposed { get { return InstanceId == 0; } }

@@ -5,18 +5,25 @@ namespace EGameFrame
 {
     public static class EntityFactory
     {
-        public static GlobalEntity Global { get; set; }
+        public static MasterEntity Master { get; set; }
         public static bool DebugLog { get; set; } = false;
+        public static Action<Entity> CreateEntityHandler { get; set; }
+        public static Action<Entity> DestroyEntityHandler { get; set; }
+        public static Action<Entity> RenameEntityHandler { get; set; }
+        public static Action<Entity> AddComponentHandler { get; set; }
+        public static Action<Entity> RemoveComponentHandler { get; set; }
+
 
         private static T New<T>() where T : Entity, new()
         {
             var entity = new T();
             entity.InstanceId = IdFactory.NewInstanceId();
-            if (!Global.Entities.ContainsKey(typeof(T)))
+            if (!Master.Entities.ContainsKey(typeof(T)))
             {
-                Global.Entities.Add(typeof(T), new List<Entity>());
+                Master.Entities.Add(typeof(T), new List<Entity>());
             }
-            Global.Entities[typeof(T)].Add(entity);
+            Master.Entities[typeof(T)].Add(entity);
+            CreateEntityHandler?.Invoke(entity);
             return entity;
         }
 
@@ -24,7 +31,7 @@ namespace EGameFrame
         {
             var entity = New<T>();
             entity.Id = entity.InstanceId;
-            Global.AddChild(entity);
+            Master.AddChild(entity);
             entity.Awake();
             if (DebugLog) Log.Debug($"EntityFactory->Create, {typeof(T).Name}={entity.InstanceId}");
             return entity;
@@ -34,7 +41,7 @@ namespace EGameFrame
         {
             var entity = New<T>();
             entity.Id = entity.InstanceId;
-            Global.AddChild(entity);
+            Master.AddChild(entity);
             entity.Awake(initData);
             if (DebugLog) Log.Debug($"EntityFactory->Create, {typeof(T).Name}={entity.InstanceId}, {initData}");
             return entity;
