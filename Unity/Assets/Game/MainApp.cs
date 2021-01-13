@@ -1,4 +1,7 @@
 ﻿using System.Collections.Generic;
+using EGameFrame.Message;
+using EGameFrame;
+using ET;
 
 namespace EGameFrame
 {
@@ -9,7 +12,7 @@ namespace EGameFrame
         public object IoCContainer { get; private set; }
         public object PhysicsWorld { get; private set; }
         //程序基础模块
-        public Dictionary<string, Module> CodeModules => new Dictionary<string, Module>();
+        public Dictionary<string, Module> CodeModules { get; private set; } = new Dictionary<string, Module>();
 
 
         // Start is called before the first frame update
@@ -19,10 +22,12 @@ namespace EGameFrame
             LogHandler.DebugHandler += LogUtils.Debug;
             LogHandler.ErrorHandler += LogUtils.Error;
             LogHandler.ExceptionHandler += LogUtils.LogException;
+            Entity.IsServer = false;
 #else 
             LogHandler.DebugHandler += (log)=> { System.Console.WriteLine(log); };
             LogHandler.ErrorHandler += (log)=> { System.Console.WriteLine(log); };
             LogHandler.ExceptionHandler += (log)=> { System.Console.WriteLine(log); };
+            Entity.IsServer = true;
 #endif
             EntityFactory.DebugLog = true;
             EntityFactory.Master = new MasterEntity();
@@ -35,11 +40,10 @@ namespace EGameFrame
 
         private void SetupCodeModules()
         {
-            Log.Debug("SetupCodeModules");
             var sessionModule = Entity.Create<Module>();
             CodeModules.Add("SessionModule", sessionModule);
-            EntityFactory.CreateWithParent<ET.NetOuterComponent>(sessionModule);
-            Log.Debug($"{CodeModules.Count}");
+            EntityFactory.CreateWithParent<OpcodeTypeComponent>(sessionModule);
+            EntityFactory.CreateWithParent<NetOuterComponent>(sessionModule);
         }
 
         // Update is called once per frame

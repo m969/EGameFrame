@@ -74,6 +74,8 @@ namespace ET
 
         public override void Start()
         {
+            base.Start();
+
             if (!this.isConnected)
             {
                 return;

@@ -13,6 +13,11 @@ namespace EGameFrame.Message
 
         private readonly Dictionary<ushort, object> typeMessages = new Dictionary<ushort, object>();
 
+        public override void Awake()
+        {
+	        Instance = this;
+        }
+
         public void Load()
         {
             this.opcodeTypes.Clear();

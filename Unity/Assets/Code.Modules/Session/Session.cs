@@ -154,16 +154,19 @@ namespace ET
 				this.Network.MessageDispatcher.Dispatch(this, opcode, message);
 				return;
 			}
-			
+
 #if SERVER
-			if (message is IActorResponse)
-			{
-				this.Network.MessageDispatcher.Dispatch(this, opcode, message);
-				return;
+			if (IsServer)
+            {
+				if (message is IActorResponse)
+				{
+					this.Network.MessageDispatcher.Dispatch(this, opcode, message);
+					return;
+				}
 			}
 #endif
-            
-			Action<IResponse> action;
+
+            Action<IResponse> action;
 			if (!this.requestCallback.TryGetValue(response.RpcId, out action))
 			{
 				throw new Exception($"not found rpc, response message: {StringHelper.MessageToStr(response)}");

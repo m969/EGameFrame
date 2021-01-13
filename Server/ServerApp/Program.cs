@@ -35,7 +35,7 @@ namespace ServerApp
             }
             catch (Exception e)
             {
-                EGameFrame.Log.Error(e);
+                EGameFrame.Log.Exception(e);
             }
         }
     }

@@ -86,6 +86,7 @@ namespace ET
 
 		public override void Start()
 		{
+			base.Start();
 			if (this.ChannelType == ChannelType.Accept)
 			{
 				this.StartRecv();

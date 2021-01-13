@@ -25,6 +25,7 @@ namespace ET
 
         public virtual void Start()
         {
+            InstanceId = EGameFrame.IdFactory.NewInstanceId();
         }
 
         private Action<AChannel, int> errorCallback;

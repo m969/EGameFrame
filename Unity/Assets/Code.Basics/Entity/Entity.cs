@@ -35,6 +35,8 @@ namespace EGameFrame
     }
     public abstract partial class Entity : IDisposable
     {
+        public static bool IsServer { get; set; }
+        
         public object GameObject { get; set; }
         public long Id { get; set; }
         public long InstanceId { get; set; }

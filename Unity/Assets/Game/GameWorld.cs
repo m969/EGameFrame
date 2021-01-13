@@ -6,7 +6,7 @@ using EGameFrame.Message;
 public class GameWorld
 {
     //游戏业务模块
-    public static Dictionary<string, Module> GameModules => new Dictionary<string, Module>();
+    public static Dictionary<string, Module> GameModules { get; private set; } = new Dictionary<string, Module>();
 
 
     public void Start()
