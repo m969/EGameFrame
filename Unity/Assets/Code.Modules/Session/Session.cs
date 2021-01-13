@@ -38,13 +38,13 @@ namespace ET
 			}
 		}
 
-		public void Awake(AChannel aChannel)
+		public override void Awake(object aChannel)
 		{
 			long timeNow = TimeHelper.Now();
 			this.LastRecvTime = timeNow;
 			this.LastSendTime = timeNow;
 			
-			this.channel = aChannel;
+			this.channel = aChannel as AChannel;
 			this.requestCallback.Clear();
 			long id = this.Id;
 			channel.ErrorCallback += (c, e) =>
@@ -237,6 +237,7 @@ namespace ET
 		
 		public void Send(ushort opcode, object message)
 		{
+			Log.Debug($"Send opcode={opcode}");
 			if (this.IsDisposed)
 			{
 				throw new Exception("session已经被Dispose了");
@@ -264,6 +265,7 @@ namespace ET
 
 		public void Send(MemoryStream stream)
 		{
+			Log.Debug($"channel Send {stream.Length}");
 			channel.Send(stream);
 		}
 	}

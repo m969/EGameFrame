@@ -3,40 +3,39 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Collections.Generic;
 using EGameFrame;
+using EGameFrame.Message;
+using ET;
 
 namespace ServerApp
 {
     class Program
     {
-        private static Dictionary<string, Module> Modules = new Dictionary<string, Module>();
+        public static MainApp MainApp { get; private set; }
 
 
         static void Main(string[] args)
-
         {
             Console.WriteLine("ServerApp Program start...");
 
-            LogHandler.DebugHandler = (log) => { Console.WriteLine(log); };
-
-            EntityFactory.DebugLog = true;
-
-            EntityFactory.Global = new GlobalEntity();
-
-            var loginModule = EntityFactory.Create<Module>();
-            loginModule.AddComponent<LoginComponent>();
-            Modules.Add("LoginModule", loginModule);
-
-            Samples.SchemaFilesExample2.SchemaFilesExample2.Run();
-
-            Update().Coroutine();
-        }
-
-        private static async ET.ETVoid Update()
-        {
-            while (true)
+            try
             {
-                Thread.Sleep(1);
-                EntityFactory.Global.Update();
+                MainApp = new MainApp();
+                MainApp.Start();
+
+                var netOuterComponent = MainApp.CodeModules["SessionModule"].GetTypeChildren<NetOuterComponent>()[0] as NetOuterComponent;
+                netOuterComponent.Awake(netOuterComponent.Protocol);
+                var session = netOuterComponent.Create("127.0.0.1:20001");
+                session.Send(new Monster());
+
+                while (true)
+                {
+                    Thread.Sleep(1);
+                    MainApp.Update();
+                }
+            }
+            catch (Exception e)
+            {
+                EGameFrame.Log.Error(e);
             }
         }
     }

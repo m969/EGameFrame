@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 using EGameFrame;
+using ET;
+using EGameFrame.Message;
 
 public class UnityApp : MonoBehaviour
 {
@@ -11,21 +13,35 @@ public class UnityApp : MonoBehaviour
 
     private void Start()
     {
-        MainApp = new MainApp();
-        MainApp.Start();
+        try
+        {
+            MainApp = new MainApp();
+            MainApp.Start();
 
-        UnitySDK = new UnitySDK();
-        UnitySDK.Start();
+            UnitySDK = new UnitySDK();
+            UnitySDK.Start();
 
-        //GameWorld = new GameWorld();
-        //GameWorld.Start();
-
-        //Samples.SchemaFilesExample2.SchemaFilesExample2.Run();
+            var netOuterComponent = MainApp.CodeModules["SessionModule"].GetTypeChildren<NetOuterComponent>()[0] as NetOuterComponent;
+            netOuterComponent.Awake(netOuterComponent.Protocol);
+            var session = netOuterComponent.Create("127.0.0.1:20001");
+            session.Send(new Monster());
+        }
+        catch (System.Exception e)
+        {
+            EGameFrame.Log.Exception(e);
+        }
     }
 
     private void Update()
     {
-        MainApp.Update();
-        UnitySDK.Update();
+        try
+        {
+            MainApp.Update();
+            UnitySDK.Update();
+        }
+        catch (System.Exception e)
+        {
+            EGameFrame.Log.Exception(e);
+        }
     }
 }

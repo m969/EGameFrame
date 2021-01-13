@@ -5,6 +5,15 @@
     <TargetFramework>net5.0</TargetFramework>
   </PropertyGroup>
 
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DefineConstants>TRACE;DEBUG;SERVER</DefineConstants>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Include="..\..\Unity\Assets\Game\GameWorld.cs" Link="GameWorld.cs" />
+    <Compile Include="..\..\Unity\Assets\Game\MainApp.cs" Link="MainApp.cs" />
+  </ItemGroup>
+
   <ItemGroup>
     <ProjectReference Include="..\..\Unity\Code.Basics.csproj" />
     <ProjectReference Include="..\..\Unity\Code.Modules.csproj" />

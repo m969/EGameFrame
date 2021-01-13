@@ -5,6 +5,7 @@ public static class LogHandler
 {
     public static Action<string> DebugHandler;
     public static Action<string> ErrorHandler;
+    public static Action<Exception> ExceptionHandler;
 }
 
 namespace EGameFrame
@@ -21,9 +22,9 @@ namespace EGameFrame
             LogHandler.ErrorHandler?.Invoke(log);
         }
 
-        public static void Error(Exception e)
+        public static void Exception(Exception e)
         {
-            LogHandler.ErrorHandler?.Invoke(e.ToString());
+            LogHandler.ExceptionHandler?.Invoke(e);
         }
     }
 }

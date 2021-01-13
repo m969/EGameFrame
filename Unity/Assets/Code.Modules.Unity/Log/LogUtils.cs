@@ -8,4 +8,14 @@ public class LogUtils
     {
         UnityEngine.Debug.Log(log);
     }
+
+    public static void Error(string log)
+    {
+        UnityEngine.Debug.LogError(log);
+    }
+
+    public static void LogException(System.Exception e)
+    {
+        UnityEngine.Debug.LogException(e);
+    }
 }
