@@ -31,6 +31,7 @@ namespace EGameFrame
 #endif
             EntityFactory.DebugLog = true;
             EntityFactory.Master = new MasterEntity();
+            Entity.Create<TimerComponent>();
 
             SetupCodeModules();
 
@@ -38,18 +39,21 @@ namespace EGameFrame
             GameWorld.Start();
         }
 
+        private NetOuterComponent netOuterComponent;
         private void SetupCodeModules()
         {
             var sessionModule = Entity.Create<Module>();
             CodeModules.Add("SessionModule", sessionModule);
             EntityFactory.CreateWithParent<OpcodeTypeComponent>(sessionModule);
-            EntityFactory.CreateWithParent<NetOuterComponent>(sessionModule);
+            netOuterComponent = EntityFactory.CreateWithParent<NetOuterComponent>(sessionModule);
         }
 
         // Update is called once per frame
         public void Update()
         {
             EntityFactory.Master.Update();
+            TimerComponent.Instance.Update();
+            netOuterComponent.Update();
         }
     }
 }

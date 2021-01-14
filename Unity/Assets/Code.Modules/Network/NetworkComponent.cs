@@ -27,6 +27,7 @@ namespace ET
 					this.Service = new WService() { Parent = this };
 					break;
 			}
+			MessageDispatcher = new OuterMessageDispatcher();
 		}
 
 		public void Awake(NetworkProtocol protocol, string address)
@@ -49,6 +50,7 @@ namespace ET
 						this.Service = new WService(prefixs, (channel)=> { this.OnAccept(channel); }) { Parent = this };
 						break;
 				}
+				MessageDispatcher = new OuterMessageDispatcher();
 			}
 			catch (Exception e)
 			{
@@ -63,6 +65,7 @@ namespace ET
 
 		public virtual Session OnAccept(AChannel channel)
 		{
+			Log.Debug($"NetworkComponent->OnAccept");
 			Session session = EntityFactory.CreateWithParent<Session>(this, channel);
 			this.Sessions.Add(session.Id, session);
 			channel.Start();

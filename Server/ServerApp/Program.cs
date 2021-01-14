@@ -23,9 +23,7 @@ namespace ServerApp
                 MainApp.Start();
 
                 var netOuterComponent = MainApp.CodeModules["SessionModule"].GetTypeChildren<NetOuterComponent>()[0] as NetOuterComponent;
-                netOuterComponent.Awake(netOuterComponent.Protocol);
-                var session = netOuterComponent.Create("127.0.0.1:20001");
-                session.Send(new Monster());
+                netOuterComponent.Awake(netOuterComponent.Protocol, "127.0.0.1:20001");
 
                 while (true)
                 {

@@ -11,7 +11,7 @@ public class UnityApp : MonoBehaviour
     public static UnitySDK UnitySDK { get; private set; }
 
 
-    private void Start()
+    private async void Start()
     {
         try
         {
@@ -24,6 +24,7 @@ public class UnityApp : MonoBehaviour
             var netOuterComponent = MainApp.CodeModules["SessionModule"].GetTypeChildren<NetOuterComponent>()[0] as NetOuterComponent;
             netOuterComponent.Awake(netOuterComponent.Protocol);
             var session = netOuterComponent.Create("127.0.0.1:20001");
+            await TimerComponent.Instance.WaitAsync(1000);
             session.Send(new Monster());
         }
         catch (System.Exception e)

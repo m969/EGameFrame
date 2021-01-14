@@ -119,20 +119,23 @@ namespace ET
 
 		private void Run(MemoryStream memoryStream)
 		{
+			Log.Debug($"Run");
 			memoryStream.Seek(Packet.MessageIndex, SeekOrigin.Begin);
-			ushort opcode = BitConverter.ToUInt16(memoryStream.GetBuffer(), Packet.OpcodeIndex);
-			
+			var opcodeIndex = (int)memoryStream.Length - Packet.MessageIndex;
+			ushort opcode = BitConverter.ToUInt16(memoryStream.GetBuffer(), opcodeIndex);
+			Log.Debug($"{opcode} {memoryStream.Length} {opcodeIndex}");
+
 			object message;
 			try
 			{
                 //Type type = OpcodeTypeComponent.Instance.GetType(opcode);
                 message = MessagePackHelper.DeserializeFrom(opcode, memoryStream);
 
-                //if (OpcodeHelper.IsNeedDebugLogMessage(opcode))
-                //{
-                //	Log.Msg(message);
-                //}
-            }
+				//if (OpcodeHelper.IsNeedDebugLogMessage(opcode))
+				//{
+				//	Log.Msg(message);
+				//}
+			}
 			catch (Exception e)
 			{
 				// 出现任何消息解析异常都要断开Session，防止客户端伪造消息
@@ -142,11 +145,12 @@ namespace ET
 				return;
 			}
 
-			//RunMessage(opcode, message);
-		}
+            RunMessage(opcode, message);
+        }
 
 		private void RunMessage(ushort opcode, object message)
 		{
+			Log.Debug($"{opcode} {message}");
 			this.LastRecvTime = TimeHelper.Now();
             
 			if (!(message is IResponse response))
@@ -155,7 +159,7 @@ namespace ET
 				return;
 			}
 
-#if SERVER
+//#if SERVER
 			if (IsServer)
             {
 				if (message is IActorResponse)
@@ -164,7 +168,7 @@ namespace ET
 					return;
 				}
 			}
-#endif
+//#endif
 
             Action<IResponse> action;
 			if (!this.requestCallback.TryGetValue(response.RpcId, out action))
@@ -234,7 +238,7 @@ namespace ET
         public void Send(IMessage message)
 		{
             ushort opcode = OpcodeTypeComponent.Instance.GetOpcode(message.GetType());
-
+			opcode = 3;
             Send(opcode, message);
         }
 		
@@ -254,17 +258,17 @@ namespace ET
 			//}
 
 			MemoryStream stream = this.Stream;
-			
-			stream.Seek(Packet.MessageIndex, SeekOrigin.Begin);
-			stream.SetLength(Packet.MessageIndex);
+
 			MessagePackHelper.SerializeTo(opcode, message, stream);
+			var messageLength = stream.GetBuffer().Length;
+			stream.SetLength(Packet.MessageIndex + stream.GetBuffer().Length);
 			stream.Seek(0, SeekOrigin.Begin);
-			
+
 			opcodeBytes.WriteTo(0, opcode);
-			Array.Copy(opcodeBytes, 0, stream.GetBuffer(), 0, opcodeBytes.Length);
-			
-			this.Send(stream);
-		}
+            Array.Copy(opcodeBytes, 0, stream.GetBuffer(), messageLength, opcodeBytes.Length);
+            this.Send(stream);
+            //Run(stream);
+        }
 
 		public void Send(MemoryStream stream)
 		{
