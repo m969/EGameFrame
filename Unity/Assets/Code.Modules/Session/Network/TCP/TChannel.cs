@@ -212,7 +212,6 @@ namespace ET
 
 		private void OnRecvComplete(object o)
 		{
-			Log.Debug($"{o}");
 			if (this.socket == null)
 			{
 				return;

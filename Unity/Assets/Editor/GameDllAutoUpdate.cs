@@ -27,8 +27,8 @@ namespace ETEditor
             }
             File.Copy(Path.Combine(ScriptAssembliesDir, BasicsDll), Path.Combine(CodeDir, BasicsDll), true);
             File.Copy(Path.Combine(ScriptAssembliesDir, BasicsPdb), Path.Combine(CodeDir, BasicsPdb), true);
-            File.Copy(Path.Combine(ScriptAssembliesDir, PluginsDll), Path.Combine(CodeDir, PluginsDll), true);
-            File.Copy(Path.Combine(ScriptAssembliesDir, PluginsPdb), Path.Combine(CodeDir, PluginsPdb), true);
+            //File.Copy(Path.Combine(ScriptAssembliesDir, PluginsDll), Path.Combine(CodeDir, PluginsDll), true);
+            //File.Copy(Path.Combine(ScriptAssembliesDir, PluginsPdb), Path.Combine(CodeDir, PluginsPdb), true);
             File.Copy(Path.Combine(ScriptAssembliesDir, ModulesDll), Path.Combine(CodeDir, ModulesDll), true);
             File.Copy(Path.Combine(ScriptAssembliesDir, ModulesPdb), Path.Combine(CodeDir, ModulesPdb), true);
             File.Copy(Path.Combine(ScriptAssembliesDir, GameModulesDll), Path.Combine(CodeDir, GameModulesDll), true);

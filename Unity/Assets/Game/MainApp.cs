@@ -44,13 +44,14 @@ namespace EGameFrame
         {
             var sessionModule = Entity.Create<Module>();
             CodeModules.Add("SessionModule", sessionModule);
-            EntityFactory.CreateWithParent<OpcodeTypeComponent>(sessionModule);
+            EntityFactory.CreateWithParent<OpcodeTypeComponent>(sessionModule).Load();
             netOuterComponent = EntityFactory.CreateWithParent<NetOuterComponent>(sessionModule);
         }
 
         // Update is called once per frame
         public void Update()
         {
+            OneThreadSynchronizationContext.Instance.Update();
             EntityFactory.Master.Update();
             TimerComponent.Instance.Update();
             netOuterComponent.Update();

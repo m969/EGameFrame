@@ -119,11 +119,9 @@ namespace ET
 
 		private void Run(MemoryStream memoryStream)
 		{
-			Log.Debug($"Run");
 			memoryStream.Seek(Packet.MessageIndex, SeekOrigin.Begin);
 			var opcodeIndex = (int)memoryStream.Length - Packet.MessageIndex;
 			ushort opcode = BitConverter.ToUInt16(memoryStream.GetBuffer(), opcodeIndex);
-			Log.Debug($"{opcode} {memoryStream.Length} {opcodeIndex}");
 
 			object message;
 			try
@@ -238,13 +236,12 @@ namespace ET
         public void Send(IMessage message)
 		{
             ushort opcode = OpcodeTypeComponent.Instance.GetOpcode(message.GetType());
-			opcode = 3;
             Send(opcode, message);
         }
 		
 		public void Send(ushort opcode, object message)
 		{
-			Log.Debug($"Send opcode={opcode}");
+			Log.Debug($"Send opcode={opcode} {message}");
 			if (this.IsDisposed)
 			{
 				throw new Exception("session已经被Dispose了");
@@ -272,7 +269,6 @@ namespace ET
 
 		public void Send(MemoryStream stream)
 		{
-			Log.Debug($"channel Send {stream.Length}");
 			channel.Send(stream);
 		}
 	}

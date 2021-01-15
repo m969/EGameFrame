@@ -65,7 +65,6 @@ namespace ET
 
 		public virtual Session OnAccept(AChannel channel)
 		{
-			Log.Debug($"NetworkComponent->OnAccept");
 			Session session = EntityFactory.CreateWithParent<Session>(this, channel);
 			this.Sessions.Add(session.Id, session);
 			channel.Start();
