@@ -9,7 +9,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Code.Modules", "..\Unity\Co
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Code.Basics", "..\Unity\Code.Basics.csproj", "{5C484B87-E94D-E9E3-5DDD-53FAA9AEF034}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Server.Services", "Server.Services\Server.Services.csproj", "{558C87F9-B259-4191-AE9A-03079EB5750D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Game.ServerServices", "Game.ServerServices\Game.ServerServices.csproj", "{558C87F9-B259-4191-AE9A-03079EB5750D}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Game.Modules", "..\Unity\Game.Modules.csproj", "{D56C5B2F-FF1E-9025-4F84-4856EAEFBDFD}"
 EndProject

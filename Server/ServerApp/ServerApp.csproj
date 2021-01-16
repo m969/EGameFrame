@@ -18,7 +18,7 @@
     <ProjectReference Include="..\..\Unity\Code.Basics.csproj" />
     <ProjectReference Include="..\..\Unity\Code.Modules.csproj" />
     <ProjectReference Include="..\..\Unity\Game.Modules.csproj" />
-    <ProjectReference Include="..\Server.Services\Server.Services.csproj" />
+    <ProjectReference Include="..\Game.ServerServices\Game.ServerServices.csproj" />
   </ItemGroup>
 
 </Project>
