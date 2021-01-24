@@ -2,12 +2,17 @@
 using System.Collections.Generic;
 using EGameFrame;
 
-public class LoginComponent : Component
+namespace EGameFrame.Login
 {
-    public override void Setup()
+    public class LoginComponent : Component
     {
-        Log.Debug("LoginComponent");
+        public static LoginComponent Instance { get; set; }
+        public Dictionary<long, AccountActor> IdAccountEntities { get; set; } = new Dictionary<long, AccountActor>();
+        public Dictionary<long, Player> IdPlayers { get; set; } = new Dictionary<long, Player>();
+
+        public override void Setup()
+        {
+            Instance = this;
+        }
     }
-
-
 }

@@ -1,13 +1,15 @@
 ﻿using System.Collections.Generic;
+using EGameFrame.District;
 using EGameFrame.Message;
-using EGameFrame;
 using ET;
 
 namespace EGameFrame
 {
+    public enum DistrictType { Gate, World, DB, Client, }
+
     public class MainApp
     {
-        public GameWorld GameWorld { get; private set; }
+        public GameGlobal GameGlobal { get; private set; }
         public object ECSWorld { get; private set; }
         public object IoCContainer { get; private set; }
         public object PhysicsWorld { get; private set; }
@@ -35,8 +37,7 @@ namespace EGameFrame
 
             SetupCodeModules();
 
-            GameWorld = new GameWorld();
-            GameWorld.Start();
+            GameGlobal = Entity.Create<GameGlobal>();
         }
 
         private NetOuterComponent netOuterComponent;
@@ -44,8 +45,8 @@ namespace EGameFrame
         {
             var sessionModule = Entity.Create<Module>();
             CodeModules.Add("SessionModule", sessionModule);
-            EntityFactory.CreateWithParent<OpcodeTypeComponent>(sessionModule).Load();
-            netOuterComponent = EntityFactory.CreateWithParent<NetOuterComponent>(sessionModule);
+            Entity.CreateWithParent<OpcodeTypeComponent>(sessionModule).Load();
+            netOuterComponent = Entity.CreateWithParent<NetOuterComponent>(sessionModule);
         }
 
         // Update is called once per frame

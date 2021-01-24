@@ -10,7 +10,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Include="..\..\Unity\Assets\Game\GameWorld.cs" Link="GameWorld.cs" />
+    <Compile Include="..\..\Unity\Assets\Game\GameGlobal.cs" Link="GameGlobal.cs" />
     <Compile Include="..\..\Unity\Assets\Game\MainApp.cs" Link="MainApp.cs" />
   </ItemGroup>
 

@@ -6,6 +6,9 @@ namespace EGameFrame
 {
     public abstract partial class Entity
     {
+        private static MasterEntity Master { get; set; }
+
+
         public static T Create<T>() where T : Entity, new()
         {
             return EntityFactory.Create<T>();
@@ -42,7 +45,7 @@ namespace EGameFrame
         public long InstanceId { get; set; }
         private string name;
         public string Name { get { return name; } set { name = value; EntityFactory.RenameEntityHandler?.Invoke(this); } }
-        private MasterEntity Global => EntityFactory.Master;
+        private Entity DistrictScene { get; set; }
         private Entity parent;
         public Entity Parent { get { return parent; } set { parent = value; OnSetParent(value); } }
         public bool IsDisposed { get { return InstanceId == 0; } }
@@ -114,7 +117,7 @@ namespace EGameFrame
             c.Entity = this;
             c.IsDisposed = false;
             this.Components.Add(typeof(T), c);
-            Global.AddComponents.Add(c);
+            Master.AllComponents.Add(c);
             if (EntityFactory.DebugLog) Log.Debug($"{GetType().Name}->AddComponent, {typeof(T).Name}");
             c.Setup();
             return c;
