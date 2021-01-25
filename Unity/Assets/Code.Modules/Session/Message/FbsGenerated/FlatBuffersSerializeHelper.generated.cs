@@ -7,9 +7,16 @@ using ET;
 namespace EGameFrame.Message
 {
     [Message(1)]
-    public partial class Monster : ET.IMessage
+    public partial class Monster : IMessage
     {
+    }
 
+    [Message(2)]
+    public partial class LoginRequest : IRequest, IResponse
+    {
+        public int RpcId { get; set; }
+        public int Error { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        public string Message { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
     }
 
     public static class FlatBuffersSerializeHelper

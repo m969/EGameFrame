@@ -10,7 +10,7 @@ namespace EGameFrame
     public class GameGlobal : Entity
     {
         //业务行政场景
-        public Dictionary<DistrictType, Entity> TypeDistrictScenes { get; private set; } = new Dictionary<DistrictType, Entity>();
+        public Dictionary<DistrictType, DistrictScene> TypeDistrictScenes { get; private set; } = new Dictionary<DistrictType, DistrictScene>();
         //游戏业务模块
         public static Dictionary<string, Module> GameModules { get; private set; } = new Dictionary<string, Module>();
 
@@ -31,10 +31,12 @@ namespace EGameFrame
         private void SetupGameModules()
         {
 #if SERVER
-            var loginModule = Entity.CreateWithParent<Module>(TypeDistrictScenes[DistrictType.Gate]);
+            var gateDistrict = TypeDistrictScenes[DistrictType.Gate];
+            var loginModule = Entity.CreateWithParent<Module>(gateDistrict);
             loginModule.AddComponent<LoginComponent>();
 #else
-            var loginModule = Entity.CreateWithParent<Module>(TypeDistrictScenes[DistrictType.Client]);
+            var clientDistrict = TypeDistrictScenes[DistrictType.Client];
+            var loginModule = Entity.CreateWithParent<Module>(clientDistrict);
             loginModule.AddComponent<LoginComponent>();
 #endif
             //GameModules.Add("LoginModule", loginModule);
