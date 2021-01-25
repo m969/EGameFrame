@@ -1,6 +1,0 @@
-﻿namespace EGameFrame.Message;
-table LoginRequest (PrecompiledSerializer) 
-{
-    RpcId:ubyte; 
-}
-root_type LoginRequest;

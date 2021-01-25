@@ -24,6 +24,8 @@ namespace FlatBuffers.Editor
 #endif
         public override void OnImportAsset(UnityEditor.AssetImporters.AssetImportContext ctx)
         {
+            return;
+
             var schemaFile = Path.GetFullPath(ctx.assetPath);
 
             //if (generatedSourcePath == null)

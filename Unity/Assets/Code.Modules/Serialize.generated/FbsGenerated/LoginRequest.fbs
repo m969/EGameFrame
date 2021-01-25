@@ -1,0 +1,9 @@
+﻿//IRequest
+namespace EGameFrame.Message;
+table LoginRequest (PrecompiledSerializer) 
+{
+    RpcId:int;
+    Account:string;
+    Password:string;
+}
+root_type LoginRequest;

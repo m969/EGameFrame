@@ -1,0 +1,11 @@
+﻿//IResponse
+namespace EGameFrame.Message;
+table LoginResponse (PrecompiledSerializer) 
+{
+    RpcId:int;
+    Error:int;
+    Message:string;
+    Account:string;
+    Password:string;
+}
+root_type LoginResponse;
