@@ -5,7 +5,7 @@ using ET;
 
 namespace EGameFrame
 {
-    public enum DistrictType { Gate, World, DB, Client, }
+    public enum DistrictType { Login, Gate, Spaces, DB, Client, }
 
     public class MainApp
     {
@@ -31,17 +31,19 @@ namespace EGameFrame
             LogHandler.ExceptionHandler += (log)=> { System.Console.WriteLine(log); };
             Entity.IsServer = true;
 #endif
+            AssemblyHelper.Add(typeof(AssemblyHelper).Assembly);
+
             EntityFactory.DebugLog = true;
             EntityFactory.Master = new MasterEntity();
             Entity.Create<TimerComponent>();
 
-            SetupCodeModules();
+            InstallModules();
 
             GameGlobal = Entity.Create<GameGlobal>();
         }
 
         private NetOuterComponent netOuterComponent;
-        private void SetupCodeModules()
+        private void InstallModules()
         {
             var sessionModule = Entity.Create<Module>();
             CodeModules.Add("SessionModule", sessionModule);

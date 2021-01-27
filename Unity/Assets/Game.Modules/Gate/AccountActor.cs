@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using EGameFrame;
 using ET;
 
-namespace EGameFrame.Login
+namespace EGameFrame.Gate
 {
     public class AccountActor : Entity
     {

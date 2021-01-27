@@ -6,7 +6,7 @@ namespace EGameFrame
 {
     public abstract partial class Entity
     {
-        private static MasterEntity Master { get; set; }
+        private static MasterEntity Master => EntityFactory.Master;
 
 
         public static T Create<T>() where T : Entity, new()

@@ -1,7 +1,7 @@
 ﻿using System;
 using EGameFrame.Login;
 
-namespace EGameFrame.Services.Login
+namespace EGameFrame.Services.Gate
 {
     public static class PlayerServices
     {

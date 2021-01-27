@@ -96,7 +96,7 @@ namespace EGameFrame.Message
                 var sb = new StringBuilder();
                 var sb1 = new StringBuilder();
                 var sb2 = new StringBuilder();
-                var startOpcode = 0;
+                var startOpcode = 100;
                 foreach (var item in fbsFiles)
                 {
                     startOpcode++;
@@ -114,7 +114,7 @@ namespace EGameFrame.Message
 
             {
                 var sb = new StringBuilder();
-                var startOpcode = 0;
+                var startOpcode = 100;
                 foreach (var item in fbsFiles)
                 {
                     startOpcode++;

@@ -126,7 +126,7 @@ namespace ET
 			object message;
 			try
 			{
-                //Type type = OpcodeTypeComponent.Instance.GetType(opcode);
+                Type type = OpcodeTypeComponent.Instance.GetType(opcode);
                 message = MessagePackHelper.DeserializeFrom(opcode, memoryStream);
 
 				//if (OpcodeHelper.IsNeedDebugLogMessage(opcode))

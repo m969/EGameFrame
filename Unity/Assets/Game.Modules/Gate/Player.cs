@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 
-namespace EGameFrame.Login
+namespace EGameFrame.Gate
 {
     public partial class Player : Entity
     {

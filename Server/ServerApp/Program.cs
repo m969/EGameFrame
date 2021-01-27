@@ -24,6 +24,8 @@ namespace ServerApp
 
                 var netOuterComponent = MainApp.CodeModules["SessionModule"].GetTypeChildren<NetOuterComponent>()[0] as NetOuterComponent;
                 netOuterComponent.Awake(netOuterComponent.Protocol, "127.0.0.1:20001");
+                var outerMessageDispatcher = netOuterComponent.MessageDispatcher as OuterMessageDispatcher;
+                outerMessageDispatcher.OnSessionMessageDispatchAction = (session, message) => { };
 
                 while (true)
                 {

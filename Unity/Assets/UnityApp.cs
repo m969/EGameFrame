@@ -25,7 +25,7 @@ public class UnityApp : MonoBehaviour
             netOuterComponent.Awake(netOuterComponent.Protocol);
             var session = netOuterComponent.Create("127.0.0.1:20001");
             await TimerComponent.Instance.WaitAsync(1000);
-            session.Send(new Monster());
+            session.Send(new LoginRequest());
         }
         catch (System.Exception e)
         {

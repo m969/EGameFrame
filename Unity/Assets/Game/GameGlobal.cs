@@ -17,29 +17,29 @@ namespace EGameFrame
 
         public override void Awake()
         {
-            SetupGameModules();
-
 #if SERVER
+            TypeDistrictScenes.Add(DistrictType.Login, Entity.Create<DistrictScene>());
             TypeDistrictScenes.Add(DistrictType.Gate, Entity.Create<DistrictScene>());
-            TypeDistrictScenes.Add(DistrictType.World, Entity.Create<DistrictScene>());
+            TypeDistrictScenes.Add(DistrictType.Spaces, Entity.Create<DistrictScene>());
             TypeDistrictScenes.Add(DistrictType.DB, Entity.Create<DistrictScene>());
 #else
             TypeDistrictScenes.Add(DistrictType.Client, Entity.Create<DistrictScene>());
 #endif
+
+            InstallModules();
         }
 
-        private void SetupGameModules()
+        private void InstallModules()
         {
 #if SERVER
-            var gateDistrict = TypeDistrictScenes[DistrictType.Gate];
-            var loginModule = Entity.CreateWithParent<Module>(gateDistrict);
+            var loginDistrict = TypeDistrictScenes[DistrictType.Login];
+            var loginModule = Entity.CreateWithParent<Module>(loginDistrict);
             loginModule.AddComponent<LoginComponent>();
 #else
             var clientDistrict = TypeDistrictScenes[DistrictType.Client];
             var loginModule = Entity.CreateWithParent<Module>(clientDistrict);
             loginModule.AddComponent<LoginComponent>();
 #endif
-            //GameModules.Add("LoginModule", loginModule);
         }
 
         public void Update()
