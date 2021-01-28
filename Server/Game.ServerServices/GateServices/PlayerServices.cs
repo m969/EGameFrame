@@ -1,19 +1,17 @@
 ﻿using System;
 using EGameFrame.Login;
 using EGameFrame.Gate;
+using ET;
+using EGameFrame.Message;
 
 namespace EGameFrame.Services.Gate
 {
-    public static class PlayerServices
+    public static partial class PlayerServices
     {
-        public static void OnSendChatText(this Player player, string chatText)
+        public static partial async ETTask OnSendChatTextRequestHandle(this Player player, LoginRequest request, LoginResponse response)
         {
-
-        }
-
-        public static void OnReceiveChatText(this Player player, string chatText)
-        {
-
+            player.Client.OnReceiveChatText("");
+            await ETTask.CompletedTask;
         }
     }
 }
