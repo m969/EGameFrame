@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using EGameFrame;
 using EGameFrame.Message;
 using EGameFrame.Login;
+using EGameFrame.Gate;
 using EGameFrame.District;
 
 namespace EGameFrame
@@ -34,11 +35,19 @@ namespace EGameFrame
 #if SERVER
             var loginDistrict = TypeDistrictScenes[DistrictType.Login];
             var loginModule = Entity.CreateWithParent<Module>(loginDistrict);
-            loginModule.AddComponent<LoginComponent>();
+            Entity.CreateWithParent<LoginService>(loginModule);
+
+            var gateDistrict = TypeDistrictScenes[DistrictType.Gate];
+            var gateModule = Entity.CreateWithParent<Module>(gateDistrict);
+            Entity.CreateWithParent<GateService>(gateModule);
 #else
             var clientDistrict = TypeDistrictScenes[DistrictType.Client];
+
             var loginModule = Entity.CreateWithParent<Module>(clientDistrict);
-            loginModule.AddComponent<LoginComponent>();
+            Entity.CreateWithParent<LoginService>(loginModule);
+
+            var gateModule = Entity.CreateWithParent<Module>(clientDistrict);
+            Entity.CreateWithParent<GateService>(gateModule);
 #endif
         }
 

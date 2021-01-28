@@ -1,5 +1,6 @@
 ﻿using System;
 using EGameFrame.Login;
+using EGameFrame.Gate;
 
 namespace EGameFrame.Services.Gate
 {

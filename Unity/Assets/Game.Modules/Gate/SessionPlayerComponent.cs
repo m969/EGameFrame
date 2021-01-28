@@ -3,7 +3,7 @@ using EGameFrame.Gate;
 
 namespace ET
 {
-	public class SessionPlayerComponent : Entity
+	public class SessionPlayerComponent : Component
 	{
 		public Player Player;
 	}

@@ -4,11 +4,11 @@ using EGameFrame;
 
 namespace EGameFrame.Login
 {
-    public class LoginComponent : Component
+    public class LoginService : Entity
     {
-        public static LoginComponent Instance { get; set; }
+        public static LoginService Instance { get; set; }
 
-        public override void Setup()
+        public override void Awake()
         {
             Instance = this;
         }

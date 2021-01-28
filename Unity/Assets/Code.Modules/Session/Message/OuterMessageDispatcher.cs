@@ -4,7 +4,7 @@ namespace ET
 {
 	public class OuterMessageDispatcher: IMessageDispatcher
 	{
-        public Action<Session, object> OnSessionMessageDispatchAction { get; set; }
+        public Action<Session, ushort, object> OnSessionMessageDispatchAction { get; set; }
 
 
         public void Dispatch(Session session, ushort opcode, object message)
@@ -14,7 +14,7 @@ namespace ET
 		
 		public async ETVoid DispatchAsync(Session session, ushort opcode, object message)
 		{
-            OnSessionMessageDispatchAction?.Invoke(session, message);
+            OnSessionMessageDispatchAction?.Invoke(session, opcode, message);
             ////根据消息接口判断是不是Actor消息，不同的接口做不同的处理
             //switch (message)
             //{

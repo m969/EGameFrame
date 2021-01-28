@@ -10,7 +10,7 @@ namespace EGameFrame.Services.Login
     {
 		protected override async ETTask Run(Session session, LoginRequest request, LoginResponse response, Action reply)
 		{
-            await LoginComponent.Instance.OnLoginRequestHandle(request, response);
+            await LoginService.Instance.OnLoginRequestHandle(request, response);
 		}
 	}
 }

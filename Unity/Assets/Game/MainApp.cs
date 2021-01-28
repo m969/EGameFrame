@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Threading;
 using EGameFrame.District;
 using EGameFrame.Message;
 using ET;
@@ -6,6 +7,7 @@ using ET;
 namespace EGameFrame
 {
     public enum DistrictType { Login, Gate, Spaces, DB, Client, }
+    public enum CodeModule { NetworkMessage }
 
     public class MainApp
     {
@@ -14,12 +16,14 @@ namespace EGameFrame
         public object IoCContainer { get; private set; }
         public object PhysicsWorld { get; private set; }
         //程序基础模块
-        public Dictionary<string, Module> CodeModules { get; private set; } = new Dictionary<string, Module>();
+        public Dictionary<CodeModule, Module> CodeModules { get; private set; } = new Dictionary<CodeModule, Module>();
 
 
         // Start is called before the first frame update
         public void Start()
         {
+            // 异步方法全部会回掉到主线程
+            SynchronizationContext.SetSynchronizationContext(OneThreadSynchronizationContext.Instance);
 #if !SERVER
             LogHandler.DebugHandler += LogUtils.Debug;
             LogHandler.ErrorHandler += LogUtils.Error;
@@ -30,8 +34,12 @@ namespace EGameFrame
             LogHandler.ErrorHandler += (log)=> { System.Console.WriteLine(log); };
             LogHandler.ExceptionHandler += (log)=> { System.Console.WriteLine(log); };
             Entity.IsServer = true;
+            AssemblyHelper.Add(typeof(EGameFrame.Services.UniversalVirtualContainer).Assembly);
 #endif
-            AssemblyHelper.Add(typeof(AssemblyHelper).Assembly);
+            AssemblyHelper.Add(typeof(FlatBuffersSerializeHelper).Assembly);
+
+            MessagePackHelper.SerializeToAction = FlatBuffersSerializeHelper.SerializeTo;
+            MessagePackHelper.DeserializeFromFunc2 = FlatBuffersSerializeHelper.DeserializeFrom;
 
             EntityFactory.DebugLog = true;
             EntityFactory.Master = new MasterEntity();
@@ -46,18 +54,26 @@ namespace EGameFrame
         private void InstallModules()
         {
             var sessionModule = Entity.Create<Module>();
-            CodeModules.Add("SessionModule", sessionModule);
+            CodeModules.Add(CodeModule.NetworkMessage, sessionModule);
             Entity.CreateWithParent<OpcodeTypeComponent>(sessionModule).Load();
             netOuterComponent = Entity.CreateWithParent<NetOuterComponent>(sessionModule);
+            sessionModule.AddComponent<MessageDispatcherComponent>().Load();
         }
 
         // Update is called once per frame
         public void Update()
         {
-            OneThreadSynchronizationContext.Instance.Update();
-            EntityFactory.Master.Update();
-            TimerComponent.Instance.Update();
-            netOuterComponent.Update();
+            try
+            {
+                OneThreadSynchronizationContext.Instance.Update();
+                EntityFactory.Master.Update();
+                TimerComponent.Instance.Update();
+                netOuterComponent.Update();
+            }
+            catch (System.Exception e)
+            {
+                EGameFrame.Log.Exception(e);
+            }
         }
     }
 }

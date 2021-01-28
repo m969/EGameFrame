@@ -1,9 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using EGameFrame;
-using ET;
 
-namespace EGameFrame.Message
+namespace ET
 {
 	public class OpcodeTypeComponent : Entity
 	{

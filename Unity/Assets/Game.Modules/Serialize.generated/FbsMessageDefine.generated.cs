@@ -2,22 +2,22 @@ using ET;
 
 namespace EGameFrame.Message
 {
-    [Message(1)]
+    [Message(101)]
     public partial class FooBarContainer : IMessage
     {
     }
 
-    [Message(2)]
+    [Message(102)]
     public partial class LoginRequest : IRequest
     {
     }
 
-    [Message(3)]
+    [Message(103)]
     public partial class LoginResponse : IResponse
     {
     }
 
-    [Message(4)]
+    [Message(104)]
     public partial class Monster : IMessage
     {
     }

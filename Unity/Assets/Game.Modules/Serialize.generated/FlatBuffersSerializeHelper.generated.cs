@@ -23,10 +23,10 @@ namespace EGameFrame.Message
         {
             switch (opcode)
             {
-				case 1 : return EGameFrame.Message.FooBarContainer.Serializer.Parse(bytes);
-				case 2 : return EGameFrame.Message.LoginRequest.Serializer.Parse(bytes);
-				case 3 : return EGameFrame.Message.LoginResponse.Serializer.Parse(bytes);
-				case 4 : return EGameFrame.Message.Monster.Serializer.Parse(bytes);
+				case 101 : return EGameFrame.Message.FooBarContainer.Serializer.Parse(bytes);
+				case 102 : return EGameFrame.Message.LoginRequest.Serializer.Parse(bytes);
+				case 103 : return EGameFrame.Message.LoginResponse.Serializer.Parse(bytes);
+				case 104 : return EGameFrame.Message.Monster.Serializer.Parse(bytes);
 
                 default:
                     return null;
@@ -37,10 +37,10 @@ namespace EGameFrame.Message
         {
             switch (opcode)
             {
-				case 1 : return EGameFrame.Message.FooBarContainer.Serializer.Parse(stream.GetBuffer());
-				case 2 : return EGameFrame.Message.LoginRequest.Serializer.Parse(stream.GetBuffer());
-				case 3 : return EGameFrame.Message.LoginResponse.Serializer.Parse(stream.GetBuffer());
-				case 4 : return EGameFrame.Message.Monster.Serializer.Parse(stream.GetBuffer());
+				case 101 : return EGameFrame.Message.FooBarContainer.Serializer.Parse(stream.GetBuffer());
+				case 102 : return EGameFrame.Message.LoginRequest.Serializer.Parse(stream.GetBuffer());
+				case 103 : return EGameFrame.Message.LoginResponse.Serializer.Parse(stream.GetBuffer());
+				case 104 : return EGameFrame.Message.Monster.Serializer.Parse(stream.GetBuffer());
 
                 default:
                     return null;

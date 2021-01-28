@@ -21,7 +21,7 @@ public class UnityApp : MonoBehaviour
             UnitySDK = new UnitySDK();
             UnitySDK.Start();
 
-            var netOuterComponent = MainApp.CodeModules["SessionModule"].GetTypeChildren<NetOuterComponent>()[0] as NetOuterComponent;
+            var netOuterComponent = MainApp.CodeModules[CodeModule.NetworkMessage].GetTypeChildren<NetOuterComponent>()[0] as NetOuterComponent;
             netOuterComponent.Awake(netOuterComponent.Protocol);
             var session = netOuterComponent.Create("127.0.0.1:20001");
             await TimerComponent.Instance.WaitAsync(1000);
