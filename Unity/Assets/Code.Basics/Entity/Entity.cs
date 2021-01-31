@@ -49,9 +49,10 @@ namespace EGameFrame
         private Entity parent;
         public Entity Parent { get { return parent; } set { parent = value; OnSetParent(value); } }
         public bool IsDisposed { get { return InstanceId == 0; } }
-        public Dictionary<Type, Component> Components { get; set; } = new Dictionary<Type, Component>();
-        private List<Entity> Children { get; set; } = new List<Entity>();
-        private Dictionary<Type, List<Entity>> Type2Children { get; set; } = new Dictionary<Type, List<Entity>>();
+        public Dictionary<Type, Component> Components { get; private set; } = new Dictionary<Type, Component>();
+        public List<Entity> Children { get; private set; } = new List<Entity>();
+        public Dictionary<Type, List<Entity>> TypeChildren { get; private set; } = new Dictionary<Type, List<Entity>>();
+        public Dictionary<long, Entity> IdChildren { get; private set; } = new Dictionary<long, Entity>();
 
 
         public Entity()
@@ -86,7 +87,8 @@ namespace EGameFrame
                     Entity.Destroy(Children[i]);
                 }
                 Children.Clear();
-                Type2Children.Clear();
+                TypeChildren.Clear();
+                IdChildren.Clear();
             }
 
             foreach (Component component in this.Components.Values)
@@ -148,11 +150,12 @@ namespace EGameFrame
         public void AddChild(Entity child)
         {
             Children.Add(child);
-            if (!Type2Children.ContainsKey(child.GetType()))
+            if (!TypeChildren.ContainsKey(child.GetType()))
             {
-                Type2Children.Add(child.GetType(), new List<Entity>());
+                TypeChildren.Add(child.GetType(), new List<Entity>());
             }
-            Type2Children[child.GetType()].Add(child);
+            TypeChildren[child.GetType()].Add(child);
+            IdChildren.Add(child.Id, child);
             child.Parent = this;
 #if SERVER
             child.GameObject.transform.SetParent(GameObject.transform);
@@ -162,24 +165,29 @@ namespace EGameFrame
         public void RemoveChild(Entity child)
         {
             Children.Remove(child);
-            if (Type2Children.ContainsKey(child.GetType()))
+            if (TypeChildren.ContainsKey(child.GetType()))
             {
-                Type2Children[child.GetType()].Remove(child);
+                TypeChildren[child.GetType()].Remove(child);
             }
+            IdChildren.Remove(child.Id);
             child.Parent = null;
 #if SERVER
             child.GameObject.transform.SetParent(null);
 #endif
         }
 
-        public Entity[] GetChildren()
-        {
-            return Children.ToArray();
-        }
-
         public Entity[] GetTypeChildren<T>() where T : Entity
         {
-            return Type2Children[typeof(T)].ToArray();
+            return TypeChildren[typeof(T)].ToArray();
+        }
+
+        public T GetChildren<T>(long id) where T : Entity
+        {
+            if (!IdChildren.ContainsKey(id))
+            {
+                return null;
+            }
+            return IdChildren[id] as T;
         }
 
         public T Publish<T>(T TEvent) where T : class

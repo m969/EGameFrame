@@ -246,7 +246,7 @@ namespace ET
 				// 10秒没连接上则报错
 				if (timeNow - this.createTime > 10 * 1000)
 				{
-					this.OnError(ErrorCode.ERR_KcpCantConnect);
+					this.OnError(ErrorCode.ERR_KcpConnectTimeout);
 					return;
 				}
 				

@@ -5,7 +5,7 @@ namespace EGameFrame
 {
     public static class EntityFactory
     {
-        public static MasterEntity Master { get; set; }
+        public static MasterEntity Master => MasterEntity.Instance;
         public static bool DebugLog { get; set; } = false;
         public static Action<Entity> CreateEntityHandler { get; set; }
         public static Action<Entity> DestroyEntityHandler { get; set; }

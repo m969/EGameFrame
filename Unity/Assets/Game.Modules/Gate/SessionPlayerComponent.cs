@@ -5,6 +5,6 @@ namespace ET
 {
 	public class SessionPlayerComponent : Component
 	{
-		public Player Player;
+		public long PlayerId;
 	}
 }

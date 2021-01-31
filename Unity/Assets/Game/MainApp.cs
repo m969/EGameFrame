@@ -38,11 +38,11 @@ namespace EGameFrame
 #endif
             AssemblyHelper.Add(typeof(FlatBuffersSerializeHelper).Assembly);
 
-            MessagePackHelper.SerializeToAction = FlatBuffersSerializeHelper.SerializeTo;
-            MessagePackHelper.DeserializeFromFunc2 = FlatBuffersSerializeHelper.DeserializeFrom;
+            MessageSerializeHelper.SerializeToAction = FlatBuffersSerializeHelper.SerializeTo;
+            MessageSerializeHelper.DeserializeFromFunc2 = FlatBuffersSerializeHelper.DeserializeFrom;
 
             EntityFactory.DebugLog = true;
-            EntityFactory.Master = new MasterEntity();
+            MasterEntity.Create();
             Entity.Create<TimerComponent>();
 
             InstallModules();

@@ -129,10 +129,10 @@
 				Log.Error($"id is not enough! value: {value}");
 			}
 
-			if (time > int.MaxValue)
-			{
-				Log.Error($"time > int.MaxValue value: {time}");
-			}
+			//if (time > int.MaxValue)
+			//{
+			//	Log.Error($"time > int.MaxValue value: {time}");
+			//}
 
 			IdStruct idStruct = new IdStruct(process, (uint)time, (ushort)value);
 			return idStruct.ToLong();

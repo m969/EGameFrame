@@ -6,7 +6,10 @@ using EGameFrame.Message;
 
 namespace EGameFrame.Services.Gate
 {
-    public static partial class PlayerServices
+    /// <summary>
+    /// Player业务层
+    /// </summary>
+    public static partial class Player_Layer
     {
         public static partial async ETTask OnSendChatTextRequestHandle(this Player player, LoginRequest request, LoginResponse response)
         {

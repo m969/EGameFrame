@@ -6,7 +6,7 @@ using ET;
 
 namespace EGameFrame.Services.Gate
 {
-    public static partial class PlayerServices
+    public static partial class Player_Layer
     {
         public static partial ETTask OnSendChatTextRequestHandle(this Player player, LoginRequest request, LoginResponse response);
     }

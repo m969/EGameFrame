@@ -127,7 +127,7 @@ namespace ET
 			try
 			{
                 Type type = OpcodeTypeComponent.Instance.GetType(opcode);
-                message = MessagePackHelper.DeserializeFrom(opcode, memoryStream);
+                message = MessageSerializeHelper.DeserializeFrom(opcode, memoryStream);
 
 				//if (OpcodeHelper.IsNeedDebugLogMessage(opcode))
 				//{
@@ -256,7 +256,7 @@ namespace ET
 
 			MemoryStream stream = this.Stream;
 
-			MessagePackHelper.SerializeTo(opcode, message, stream);
+			MessageSerializeHelper.SerializeTo(opcode, message, stream);
 			var messageLength = stream.GetBuffer().Length;
 			stream.SetLength(Packet.MessageIndex + stream.GetBuffer().Length);
 			stream.Seek(0, SeekOrigin.Begin);

@@ -5,7 +5,7 @@ using ET;
 
 namespace EGameFrame.Gate
 {
-    public class PlayerActorProxy : ActorProxy
+    public class PlayerActorProxyComponent : ActorProxyComponent
     {
     }
 }

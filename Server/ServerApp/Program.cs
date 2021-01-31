@@ -4,6 +4,9 @@ using System.Threading.Tasks;
 using System.Collections.Generic;
 using EGameFrame;
 using EGameFrame.Message;
+using EGameFrame.Gate;
+using EGameFrame.Services.Login;
+using EGameFrame.Services.Gate;
 using ET;
 
 namespace ServerApp
@@ -28,35 +31,48 @@ namespace ServerApp
                 var outerMessageDispatcher = netOuterComponent.MessageDispatcher as OuterMessageDispatcher;
 
                 outerMessageDispatcher.OnSessionMessageDispatchAction = async (session, opcode, message) => {
-                    //根据消息接口判断是不是Actor消息，不同的接口做不同的处理
                     switch (message)
                     {
                         case IActorLocationRequest actorLocationRequest: // gate session收到actor rpc消息，先向actor 发送rpc请求，再将请求结果返回客户端
                             {
-                                long unitId = session.GetComponent<SessionPlayerComponent>().Player.UnitId;
-                                int rpcId = actorLocationRequest.RpcId; // 这里要保存客户端的rpcId
-                                long instanceId = session.InstanceId;
-                                IResponse response = await ActorLocationSenderComponent.Instance.Call(unitId, actorLocationRequest);
-                                response.RpcId = rpcId;
-                                // session可能已经断开了，所以这里需要判断
-                                if (session.InstanceId == instanceId)
+                                //var playerId = session.GetComponent<SessionPlayerComponent>().PlayerId;
+
+                                //var gateDisctrict = GameGlobal.TypeDistrictScenes[DistrictType.Gate];
+                                //var gateModule = gateDisctrict.GetModule(GameModule.Gate);
+                                //var playerModule = gateDisctrict.GetModule(GameModule.Player);
+                                //var player = playerModule.GetChildren<Player>(playerId);
+                                var rpcId = actorLocationRequest.RpcId; // 这里要保存客户端的rpcId
+                                var instanceId = session.InstanceId;
+                                var entityType = opcode / 1000;
+                                if (entityType == 0)
                                 {
-                                    session.Reply(response);
+                                    var player = GateService.Instance.SessionIdPlayers[session.Id];
+                                    var response = new LoginResponse();
+                                    await player.OnSendChatTextRequestHandle((LoginRequest)actorLocationRequest, response);
+                                    response.RpcId = rpcId;
+                                    // session可能已经断开了，所以这里需要判断
+                                    if (session.InstanceId == instanceId)
+                                    {
+                                        session.Reply(response);
+                                    }
                                 }
+
+                                //long unitId = session.GetComponent<SessionPlayerComponent>().Player.UnitId;
+                                //int rpcId = actorLocationRequest.RpcId; // 这里要保存客户端的rpcId
+                                //long instanceId = session.InstanceId;
+                                //IResponse response = await ActorLocationSenderComponent.Instance.Call(unitId, actorLocationRequest);
+                                //response.RpcId = rpcId;
+                                //// session可能已经断开了，所以这里需要判断
+                                //if (session.InstanceId == instanceId)
+                                //{
+                                //    session.Reply(response);
+                                //}
                                 break;
                             }
                         case IActorLocationMessage actorLocationMessage:
                             {
-                                long unitId = session.GetComponent<SessionPlayerComponent>().Player.UnitId;
-                                ActorLocationSenderComponent.Instance.Send(unitId, actorLocationMessage);
-                                break;
-                            }
-                        case IActorRequest actorRequest:  // 分发IActorRequest消息，目前没有用到，需要的自己添加
-                            {
-                                break;
-                            }
-                        case IActorMessage actorMessage:  // 分发IActorMessage消息，目前没有用到，需要的自己添加
-                            {
+                                //long unitId = session.GetComponent<SessionPlayerComponent>().Player.UnitId;
+                                //ActorLocationSenderComponent.Instance.Send(unitId, actorLocationMessage);
                                 break;
                             }
                         default:

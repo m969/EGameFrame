@@ -4,24 +4,47 @@ namespace ET
 {
 	public static class TimeHelper
 	{
-		private static readonly long epoch = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc).Ticks;
-		/// <summary>
-		/// 客户端时间
-		/// </summary>
-		/// <returns></returns>
-		public static long ClientNow()
-		{
-			return (DateTime.UtcNow.Ticks - epoch) / 10000;
-		}
-
-		public static long ClientNowSeconds()
-		{
-			return (DateTime.UtcNow.Ticks - epoch) / 10000000;
-		}
-
 		public static long Now()
 		{
 			return ClientNow();
 		}
+
+        public const long OneDay = 86400000;
+        public const long Hour = 3600000;
+        public const long Minute = 60000;
+
+        /// <summary>
+        /// 客户端时间
+        /// </summary>
+        /// <returns></returns>
+        public static long ClientNow()
+        {
+            return TimeInfo.Instance.ClientNow();
+        }
+
+        public static long ClientNowSeconds()
+        {
+            return ClientNow() / 1000;
+        }
+
+        public static DateTime DateTimeNow()
+        {
+            return DateTime.Now;
+        }
+
+        public static long ServerNow()
+        {
+            return TimeInfo.Instance.ServerNow();
+        }
+
+        public static long ClientFrameTime()
+        {
+            return TimeInfo.Instance.ClientFrameTime();
+        }
+
+        public static long ServerFrameTime()
+        {
+            return TimeInfo.Instance.ServerFrameTime();
+        }
     }
 }

@@ -5,10 +5,10 @@ namespace EGameFrame.Gate
 {
     public partial class Player : Entity
     {
-        public PlayerActorProxy PlayerActorProxy { get; set; }
+        public PlayerActorProxyComponent PlayerActorProxy { get; set; }
         public long UnitId { get; set; }
         public int ClientMessageType = 0;
-        public PlayerActorProxy AllClients
+        public PlayerActorProxyComponent AllClients
         {
             get
             {
@@ -16,7 +16,7 @@ namespace EGameFrame.Gate
                 return PlayerActorProxy;
             }
         }
-        public PlayerActorProxy OtherClients
+        public PlayerActorProxyComponent OtherClients
         {
             get
             {
@@ -24,7 +24,7 @@ namespace EGameFrame.Gate
                 return PlayerActorProxy;
             }
         }
-        public PlayerActorProxy Client
+        public PlayerActorProxyComponent Client
         {
             get
             {
