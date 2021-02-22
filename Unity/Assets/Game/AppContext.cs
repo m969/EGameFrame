@@ -9,9 +9,9 @@ namespace EGameFrame
     public enum DistrictType { Login, Gate, Spaces, DB, Client, }
     public enum CodeModule { NetworkMessage }
 
-    public class MainApp
+    public class AppContext
     {
-        public GameGlobal GameGlobal { get; private set; }
+        public GameContext GameContext { get; private set; }
         public object ECSWorld { get; private set; }
         public object IoCContainer { get; private set; }
         public object PhysicsWorld { get; private set; }
@@ -19,7 +19,6 @@ namespace EGameFrame
         public Dictionary<CodeModule, Module> CodeModules { get; private set; } = new Dictionary<CodeModule, Module>();
 
 
-        // Start is called before the first frame update
         public void Start()
         {
             // 异步方法全部会回掉到主线程
@@ -47,7 +46,7 @@ namespace EGameFrame
 
             InstallModules();
 
-            GameGlobal = Entity.Create<GameGlobal>();
+            GameContext = Entity.Create<GameContext>();
         }
 
         private NetOuterComponent netOuterComponent;
@@ -60,13 +59,12 @@ namespace EGameFrame
             sessionModule.AddComponent<MessageDispatcherComponent>().Load();
         }
 
-        // Update is called once per frame
         public void Update()
         {
             try
             {
                 OneThreadSynchronizationContext.Instance.Update();
-                EntityFactory.Master.Update();
+                MasterEntity.Instance.Update();
                 TimerComponent.Instance.Update();
                 netOuterComponent.Update();
             }

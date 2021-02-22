@@ -18,7 +18,7 @@ namespace EGameFrame
         }
     }
 
-    public class GameGlobal : Entity
+    public class GameContext : Entity
     {
         //业务行政场景
         public static Dictionary<DistrictType, DistrictScene> TypeDistrictScenes { get; private set; } = new Dictionary<DistrictType, DistrictScene>();

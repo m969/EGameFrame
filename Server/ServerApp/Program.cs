@@ -1,5 +1,4 @@
-﻿using System;
-using System.Threading;
+﻿using System.Threading;
 using System.Threading.Tasks;
 using System.Collections.Generic;
 using EGameFrame;
@@ -13,19 +12,19 @@ namespace ServerApp
 {
     class Program
     {
-        public static MainApp MainApp { get; private set; }
+        public static AppContext AppContext { get; private set; }
 
 
         static void Main(string[] args)
         {
-            Console.WriteLine("ServerApp Program start...");
+            System.Console.WriteLine("ServerApp Program start...");
 
             try
             {
-                MainApp = new MainApp();
-                MainApp.Start();
+                AppContext = new AppContext();
+                AppContext.Start();
 
-                var module = MainApp.CodeModules[CodeModule.NetworkMessage];
+                var module = AppContext.CodeModules[CodeModule.NetworkMessage];
                 var netOuterComponent = module.GetTypeChildren<NetOuterComponent>()[0] as NetOuterComponent;
                 netOuterComponent.Awake(netOuterComponent.Protocol, "127.0.0.1:20001");
                 var outerMessageDispatcher = netOuterComponent.MessageDispatcher as OuterMessageDispatcher;
@@ -84,7 +83,7 @@ namespace ServerApp
                     }
                 };
             }
-            catch (Exception e)
+            catch (System.Exception e)
             {
                 EGameFrame.Log.Exception(e);
             }
@@ -92,7 +91,7 @@ namespace ServerApp
             while (true)
             {
                 Thread.Sleep(1);
-                MainApp.Update();
+                AppContext.Update();
             }
         }
     }

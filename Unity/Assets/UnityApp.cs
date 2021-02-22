@@ -7,7 +7,7 @@ using EGameFrame.Message;
 
 public class UnityApp : MonoBehaviour
 {
-    public static MainApp MainApp { get; private set; }
+    public static AppContext AppContext { get; private set; }
     public static UnitySDK UnitySDK { get; private set; }
 
 
@@ -15,13 +15,13 @@ public class UnityApp : MonoBehaviour
     {
         try
         {
-            MainApp = new MainApp();
-            MainApp.Start();
+            AppContext = new AppContext();
+            AppContext.Start();
 
             UnitySDK = new UnitySDK();
             UnitySDK.Start();
 
-            var netOuterComponent = MainApp.CodeModules[CodeModule.NetworkMessage].GetTypeChildren<NetOuterComponent>()[0] as NetOuterComponent;
+            var netOuterComponent = AppContext.CodeModules[CodeModule.NetworkMessage].GetTypeChildren<NetOuterComponent>()[0] as NetOuterComponent;
             netOuterComponent.Awake(netOuterComponent.Protocol);
             var session = netOuterComponent.Create("127.0.0.1:20001");
             await TimerComponent.Instance.WaitAsync(1000);
@@ -37,7 +37,7 @@ public class UnityApp : MonoBehaviour
     {
         try
         {
-            MainApp.Update();
+            AppContext.Update();
             UnitySDK.Update();
         }
         catch (System.Exception e)
