@@ -67,4 +67,42 @@ namespace EGameFrame
             return entity;
         }
     }
+
+    public abstract partial class Entity
+    {
+        private static MasterEntity Master => EntityFactory.Master;
+
+
+        public static EntityBuilder<T> Build<T>() where T : Entity, new()
+        {
+            return new EntityBuilder<T>();
+        }
+
+        public static T Create<T>() where T : Entity, new()
+        {
+            return EntityFactory.Create<T>();
+        }
+
+        public static T Create<T>(object initData) where T : Entity, new()
+        {
+            return EntityFactory.Create<T>(initData);
+        }
+
+        public static T CreateWithParent<T>(Entity parent) where T : Entity, new()
+        {
+            return EntityFactory.CreateWithParent<T>(parent);
+        }
+
+        public static T CreateWithParent<T>(Entity parent, object initData) where T : Entity, new()
+        {
+            return EntityFactory.CreateWithParent<T>(parent, initData);
+        }
+
+        public static void Destroy(Entity entity)
+        {
+            entity.Dispose();
+            entity.OnDestroy();
+            EntityFactory.DestroyEntityHandler?.Invoke(entity);
+        }
+    }
 }
