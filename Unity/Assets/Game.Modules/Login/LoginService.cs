@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using EGameFrame;
 
-namespace EGameFrame.Login
+namespace Game.Modules.Login
 {
     public class LoginService : Entity
     {

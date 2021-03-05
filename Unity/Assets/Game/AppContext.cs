@@ -2,9 +2,10 @@
 using System.Threading;
 using EGameFrame.District;
 using EGameFrame.Message;
+using EGameFrame;
 using ET;
 
-namespace EGameFrame
+namespace Game
 {
     public enum DistrictType { Login, Gate, Spaces, DB, Client, }
     public enum CodeModule { NetworkMessage }

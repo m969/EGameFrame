@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using EGameFrame;
 using EGameFrame.Message;
-using EGameFrame.Login;
-using EGameFrame.Gate;
+using Game.Modules.Login;
+using Game.Modules.Gate;
 using EGameFrame.District;
 
-namespace EGameFrame
+namespace Game
 {
     public enum GameModule { Login, Gate, Player, Avatar, Space, Monster, Npc }
 

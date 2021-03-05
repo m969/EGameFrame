@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using EGameFrame;
 using ET;
 
-namespace EGameFrame.Gate
+namespace Game.Modules.Gate
 {
     public class PlayerActorProxyComponent : ActorProxyComponent
     {
